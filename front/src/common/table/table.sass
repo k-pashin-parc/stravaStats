@@ -1,0 +1,435 @@
+.md-backdrop.md-edit-dialog-backdrop
+  z-index: 80
+
+.md-edit-dialog
+  display: -webkit-flex
+  display: -ms-flexbox
+  display: flex
+  -webkit-flex-direction: column
+  -ms-flex-direction: column
+  flex-direction: column
+  position: fixed
+  z-index: 81
+  background-color: #f9f9f9
+  border-radius: 2px
+  cursor: default
+  >
+    .md-content
+      padding: 16px 24px 0
+      .md-title
+        color: rgba(0, 0, 0, 0.87)
+        margin-bottom: 8px
+      md-input-container
+        margin: 0
+        font-size: 13px
+        input
+          float: none
+        .md-errors-spacer
+          min-height: auto
+          min-width: auto
+          color: rgba(0, 0, 0, 0.54)
+          .md-char-counter
+            padding: 5px 2px 5px 0
+        [ng-message]
+          padding: 5px 0 5px 2px
+    .md-actions
+      margin: 0 16px 8px
+      .md-button
+        margin: 0
+        min-width: initial
+        + .md-button
+          margin-left: 8px
+
+.md-table-pagination
+  display: -webkit-flex
+  display: -ms-flexbox
+  display: flex
+  -webkit-align-items: center
+  -ms-flex-align: center
+  align-items: center
+  -webkit-justify-content: flex-end
+  -ms-flex-pack: end
+  justify-content: flex-end
+  -webkit-flex-wrap: wrap-reverse
+  -ms-flex-wrap: wrap-reverse
+  flex-wrap: wrap-reverse
+  box-sizing: border-box
+  padding: 0 24px
+  font-size: 12px
+  color: rgba(0, 0, 0, 0.54)
+  border-top: 1px rgba(0, 0, 0, 0.12) solid
+  .md-select
+    -webkit-justify-content: flex-end
+    -ms-flex-pack: end
+    justify-content: flex-end
+    min-width: 48px
+    text-align: right
+
+    &:not([disabled]):focus .md-select-value
+      color: rgba(0, 0, 0, 0.54)
+    .md-select-value
+      -webkit-flex: 0 0 auto
+      -ms-flex: 0 0 auto
+      flex: 0 0 auto
+      span.md-select-icon
+        -webkit-justify-content: center
+        -ms-flex-pack: center
+        justify-content: center
+        text-align: center
+        margin-right: -6px !important
+        &:after
+          top: initial
+          -webkit-transform: scaleY(0.5) scaleX(1)
+          transform: scaleY(0.5) scaleX(1)
+  >
+    *
+      display: -webkit-flex
+      display: -ms-flexbox
+      display: flex
+      -webkit-align-items: center
+      -ms-flex-align: center
+      align-items: center
+      height: 56px
+    .buttons:not(:first-child), .limit-select:not(:first-child)
+      margin-left: 32px
+    .buttons
+      margin-right: -16px
+      >
+        .md-button.md-icon-button
+          margin: 0
+        .label + .md-button.md-icon-button
+          margin-left: 20px
+
+.md-select.md-table-select
+  margin: 0
+  > .md-select-value
+    padding: 0
+    min-width: 0
+    min-height: 24px
+    border-bottom: 0 !important
+    > span
+      display: block
+      height: auto
+      -webkit-transform: none !important
+      transform: none !important
+      > .md-text
+        display: inherit
+        height: inherit
+        -webkit-transform: inherit
+        transform: inherit
+        padding-left: 4px
+      &.md-select-icon
+        display: -webkit-flex
+        display: -ms-flexbox
+        display: flex
+        -webkit-align-items: center
+        -ms-flex-align: center
+        align-items: center
+        height: 24px
+        margin: 0
+        &:after
+          top: initial
+
+.md-select-menu-container
+  &.md-table-select, &.md-pagination-select
+    margin-left: -2px
+    border-radius: 2px
+  &.md-table-select .md-select-menu, &.md-pagination-select .md-select-menu, &.md-table-select md-content, &.md-pagination-select md-content
+    border-radius: inherit
+  &.md-table-select md-content, &.md-pagination-select md-content
+    padding: 0
+  &.md-table-select .md-text
+    font-size: 13px
+  &.md-pagination-select .md-text
+    font-size: 12px
+
+.md-toolbar.md-table-toolbar
+  box-shadow: none
+  &.md-default-theme:not(.md-menu-toolbar).md-default, &:not(.md-menu-toolbar).md-default
+    background-color: #ffffff
+    color: rgba(0, 0, 0, 0.87)
+  &.md-default-theme:not(.md-menu-toolbar).md-default .md-button, &:not(.md-menu-toolbar).md-default .md-button
+    color: rgba(0, 0, 0, 0.87)
+  .md-toolbar-tools
+    padding: 0 24px
+    .md-icon
+      color: rgba(0, 0, 0, 0.54)
+    > .md-button.md-icon-button
+      margin: 0
+      &:first-child
+        margin-left: -12px
+      &:last-child
+        margin-right: -12px
+
+@media only screen and (max-width: 959px) and (min-width: 0) and (orientation: landscape)
+  .md-toolbar.md-table-toolbar .md-toolbar-tools
+    height: 64px
+    max-height: initial
+
+.md-card >
+  .md-toolbar.md-table-toolbar:first-child, .md-table-container:first-child
+    border-top-left-radius: 2px
+    border-top-right-radius: 2px
+  .md-toolbar.md-table-toolbar:last-child, .md-table-container:last-child
+    border-bottom-left-radius: 2px
+    border-bottom-right-radius: 2px
+
+.md-table-container
+  display: block
+  max-width: 100%
+  overflow-x: auto
+  -webkit-overflow-scrolling: touch
+
+table.md-table
+  width: 100%
+  border-spacing: 0
+  overflow: hidden
+  thead.md-head > tr.md-row
+    height: 56px
+  tbody.md-body > tr.md-row, tfoot.md-foot > tr.md-row
+    height: 48px
+  thead.md-head + .md-table-progress md-progress-linear
+    top: -3px
+  .md-table-progress th
+    padding: 0
+    md-progress-linear
+      height: 0
+      transition: opacity 1s
+      &.ng-hide
+        opacity: 0
+      > .md-container
+        height: 3px
+        top: 0
+        transition: none
+        > .md-bar
+          height: 3px
+  th.md-column
+    color: rgba(0, 0, 0, 0.54)
+    font-size: 12px
+    font-weight: bold
+    white-space: nowrap
+    &.md-sort
+      cursor: pointer
+    .md-icon
+      height: 16px
+      width: 16px
+      font-size: 16px !important
+      line-height: 16px !important
+      position: absolute
+      &.md-sort-icon
+        // margin-top: 4px
+        color: rgba(0, 0, 0, 0.26)
+        // opacity: 0
+        transition: -webkit-transform 0.25s, opacity 0.25s
+        transition: transform 0.25s, opacity 0.25s, margin 0.25s
+        &.md-asc
+          -webkit-transform: rotate(0deg)
+          transform: rotate(0deg)
+          margin-top: 4px
+        &.md-desc
+          -webkit-transform: rotate(180deg)
+          transform: rotate(180deg)
+      &:not(:first-child)
+        margin-left: 8px
+      &:not(:last-child)
+        margin-right: 8px
+    &.md-active
+      color: rgba(0, 0, 0, 0.87)
+      .md-icon
+        color: rgba(0, 0, 0, 0.87)
+    &:hover .md-icon.md-sort-icon, &.md-active .md-icon.md-sort-icon
+      opacity: 1
+  tr.md-row
+    &[ng\:repeat].ng-leave, &[ng-repeat].ng-leave, &[x-ng-repeat].ng-leave, &[data-ng-repeat].ng-leave
+      display: none
+  &.md-row-select
+    tbody.md-body > tr.md-row
+      transition: background-color 0.2s
+      &:not([disabled]):hover
+        background-color: #eeeeee !important
+      &.md-selected
+        background-color: #f5f5f5
+    td.md-cell:first-child, th.md-column:first-child
+      width: 20px
+      padding: 0 0 0 24px
+    td.md-cell:nth-child(2), th.md-column:nth-child(2)
+      padding: 0 24px
+    td.md-cell:nth-child(n+3):nth-last-child(n+2), th.md-column:nth-child(n+3):nth-last-child(n+2)
+      padding: 0 56px 0 0
+  &:not(.md-row-select)
+    td.md-cell:first-child, th.md-column:first-child
+      padding: 0 24px
+    td.md-cell:nth-child(n+2):nth-last-child(n+2), th.md-column:nth-child(n+2):nth-last-child(n+2)
+      padding: 0 56px 0 0
+  td.md-cell, th.md-column
+    vertical-align: middle
+    text-align: left
+  td.md-cell > *, th.md-column > *
+    vertical-align: middle
+  td.md-cell:last-child, th.md-column:last-child
+    padding: 0 24px 0 0
+  td.md-cell.md-clickable, th.md-column.md-clickable
+    cursor: pointer
+  td.md-cell.md-clickable:focus, th.md-column.md-clickable:focus
+    outline: none
+  td.md-cell.md-numeric, th.md-column.md-numeric
+    text-align: right
+  td.md-cell md-checkbox, th.md-column md-checkbox
+    margin: 0
+    width: 20px
+  td.md-cell
+    color: rgba(0, 0, 0, 0.87)
+    font-size: 13px
+    border-top: 1px rgba(0, 0, 0, 0.12) solid
+    &.md-numeric .md-select
+      -webkit-justify-content: flex-end
+      -ms-flex-pack: end
+      justify-content: flex-end
+      .md-select-value
+        -webkit-flex: 0 0 auto
+        -ms-flex: 0 0 auto
+        flex: 0 0 auto
+    &.md-placeholder
+      color: rgba(0, 0, 0, 0.26)
+    .md-select > .md-select-value > span.md-select-icon
+      -webkit-justify-content: flex-end
+      -ms-flex-pack: end
+      justify-content: flex-end
+      color: rgba(0, 0, 0, 0.54)
+      width: 18px
+      text-align: right
+      &:after
+        -webkit-transform: scaleY(0.4) scaleX(0.8)
+        transform: scaleY(0.4) scaleX(0.8)
+
+.color-season
+	.md-season
+		position: relative
+
+		&:after
+			content: ''
+			font-size: 11px
+			position: absolute
+			right: 0
+			top: 0
+			bottom: 0
+			width: 8px
+			writing-mode: vertical-lr
+			text-align: center
+			line-height: 16px
+
+$table_colors: (#e57373,	#f3e5f5,	#90caf9, #424242,	#3949ab, #1a237e, #e0f2f1, #4dd0e1, #ffa726, #a1887f,	#546e7a, #18ffff,	#e8f5e9, #69f0ae,	#f1f8e9, #689f38,	#f4ff81, #7986cb,	#fce4ec, #fff3e0)
+$table_color_counter: 2012
+
+@each $color in $table_colors
+	.md-season--#{$table_color_counter}
+		&:after
+			background: $color
+
+	$table_color_counter: $table_color_counter + 1
+
+
+.md-column
+	.md-arrow
+		position: relative
+		top: 2px
+		left: 2px
+
+.md-button[disabled] .md-icon
+	opacity: 0.26
+
+
+// @for $i from 2000 through 2100
+// 	.md-season--#{$i}
+// 		&:after
+// 			background: rgb(random(255), random(255), random(255))
+
+// table, th, td
+// 	border: none
+
+// table
+// 	width: 100%
+// 	display: table
+// 	&.bordered >
+// 		thead > tr, tbody > tr
+// 			border-bottom: 1px solid #d0d0d0
+// 	&.striped > tbody > tr
+// 		&:nth-child(odd)
+// 			background-color: #f2f2f2
+// 		> td
+// 			border-radius: 0
+// 	&.highlight > tbody > tr
+// 		transition: background-color .25s ease
+// 		&:hover
+// 			background-color: #f2f2f2
+// 	&.centered
+// 		thead tr th, tbody tr td
+// 			text-align: center
+
+// thead
+// 	border-bottom: 1px solid #d0d0d0
+
+// td, th
+// 	padding: 15px 5px
+// 	display: table-cell
+// 	text-align: left
+// 	vertical-align: middle
+// 	border-radius: 2px
+
+// @media only screen and (max-width: 992px)
+// 	table.responsive-table
+// 		width: 100%
+// 		border-collapse: collapse
+// 		border-spacing: 0
+// 		display: block
+// 		position: relative
+
+// 		td:empty:before
+// 			content: '\00a0'
+// 		th, td
+// 			margin: 0
+// 			vertical-align: top
+// 		th
+// 			text-align: left
+// 		thead
+// 			display: block
+// 			float: left
+// 			tr
+// 				display: block
+// 				padding: 0 10px 0 0
+// 				th::before
+// 					content: "\00a0"
+// 		tbody
+// 			display: block
+// 			width: auto
+// 			position: relative
+// 			overflow-x: auto
+// 			white-space: nowrap
+// 			tr
+// 				display: inline-block
+// 				vertical-align: top
+// 		th
+// 			display: block
+// 			text-align: right
+// 		td
+// 			display: block
+// 			min-height: 1.25em
+// 			text-align: left
+// 		tr
+// 			padding: 0 10px
+// 		thead
+// 			border: 0
+// 			border-right: 1px solid #d0d0d0
+// 		&.bordered
+// 			th
+// 				border-bottom: 0
+// 				border-left: 0
+// 			td
+// 				border-left: 0
+// 				border-right: 0
+// 				border-bottom: 0
+// 			tr
+// 				border: 0
+// 			tbody tr
+// 				border-right: 1px solid #d0d0d0
+

@@ -1,0 +1,12 @@
+<div *ngIf='!activitiesService.isLoading'>
+	<table-common
+		label=''
+		[data]=activities
+		[colNames]=tableConfig.common.colNames
+		[fields]=tableConfig.common.fields
+		type='bordered striped color-season'
+		withPagination=true>
+	</table-common>
+</div>
+
+<loader type="big" [(isLoading)]='activitiesService.isLoading'></loader>

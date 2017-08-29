@@ -1,0 +1,11 @@
+<div *ngIf='!activitiesService.isLoading'>
+	<chart [params]='ridesAmountParams'></chart>
+
+	<chart [params]='totalDistanceParams'></chart>
+
+	<chart [params]='spentParams'></chart>
+</div>
+
+<loader type="big" [(isLoading)]='activitiesService.isLoading'></loader>
+
+

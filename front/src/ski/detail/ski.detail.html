@@ -1,0 +1,19 @@
+<div *ngIf='!activitiesService.isLoading && activities'>
+
+	<checkbox label='за волгу' className='gray-bg' [(data)]='activityKind.is_not_quick' (dataChange)='filterActivities()'></checkbox>
+
+	<checkbox label='по пляжу' className='gray-bg' [(data)]='activityKind.is_quick' (dataChange)='filterActivities()'></checkbox>
+
+	<checkbox label='на чайке' className='gray-bg' [(data)]='activityKind.is_on_base' (dataChange)='filterActivities()'></checkbox>
+
+	<table-common
+		[data]=activities
+		[colNames]=tableConfig.extended.colNames
+		[fields]=tableConfig.extended.fields
+		type='bordered striped color-season'
+		withPagination=true>
+	</table-common>
+
+</div>
+
+<loader type="big" [(isLoading)]='activitiesService.isLoading'></loader>

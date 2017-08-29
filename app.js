@@ -10,8 +10,6 @@ app
 		extended: true
 	}))
 	.use(express.static(__dirname + '/dist'));
-	// .set('view engine', 'html');
-
 
 mainStatsRoute(app);
 

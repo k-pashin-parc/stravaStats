@@ -9,7 +9,7 @@ app
 	.use(bodyParser.urlencoded({
 		extended: true
 	}))
-	.use(express.static(__dirname + '/views'));
+	.use(express.static(__dirname + '/dist'));
 	// .set('view engine', 'html');
 
 

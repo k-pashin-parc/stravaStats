@@ -60,7 +60,7 @@ function formatData (allActivities) {
 		activity.distance = _.round(activity.distance / 1000, 1);
 
 		activity.elapsed_time = _.round(activity.elapsed_time / 60 / 60, 1);
-		activity.moving_time = _.round(activity.moving_time / 60 / 60, 1);
+		activity.moving_time = activity.moving_time / 60 / 60;
 
 		activity.total_speed = _.round(activity.distance / activity.elapsed_time, 1);
 		activity.moving_speed = _.round(activity.distance / activity.moving_time, 1);

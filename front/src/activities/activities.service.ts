@@ -9,16 +9,19 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ActivitiesService {
-	private url: string = '/api/summary';
+	private url = {
+		summary: '/api/summary',
+		detail: '/api/activity'
+	};
 
 	public isLoading: Boolean = false;
 	public activities;
 
 	constructor (private http: Http) {}
 
-	requestActivities (): Observable<{}> {
-		return this.http.get(this.url)
-										.map((res) => this.extractData(res))
+	requestActivities (): Observable<Object> {
+		return this.http.get(this.url.summary)
+										.map((res) => this.extractActivities(res))
 										.catch((err) => this.handleError(err));
 	}
 
@@ -28,13 +31,29 @@ export class ActivitiesService {
 		return this.activities ? Observable.of(this.activities) : this.requestActivities();
 	}
 
-	private extractData (res: Response) {
+	private extractActivities (res: Response) {
 		let body = res.json();
 
 		this.activities = body.data || {};
 		this.isLoading = false;
 
 		return this.activities;
+	}
+
+	public getDetail = (item) => {
+		let params = {
+			id: item.id
+		};
+
+		item.isLoading = true;
+
+		this.http
+			.get(this.url.detail, {params: params})
+			.map(res => res.json())
+			.subscribe(res => {
+				item.detail = res
+				item.isLoading = false;
+			});
 	}
 
 	private handleError (error: Response | any) {

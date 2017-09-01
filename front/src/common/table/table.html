@@ -4,6 +4,7 @@
 			<h2 class='md-title'>{{label}}</h2>
 		</div>
 	</div>
+
 	<div class='md-table-container'>
 		<table class='md-table {{type}}'>
 			<thead class='md-head'>
@@ -17,9 +18,33 @@
 			</thead>
 			<tbody class='md-body'>
 				<tr class='md-row' *ngFor='let row of data | orderBy: sortBy.field: sortBy.type | slice:pagination.startItem: pagination.endItem'>
-					<td class='md-cell {{fields.length - 1 === i ? ("md-season md-season--" + (row.season | slice:0:4)) : ""}}' [ngClass]='{"md-numeric": isNumber(row[field])}' *ngFor='let field of fields; let i=index;'>
+					<td class='md-cell {{fields.length - 1 === i ? ("md-season md-season--" + (row.season | slice:0:4)) : ""}}' [ngClass]='{"md-numeric": isNumber(row[field]), "md-expanded": row.isExpanded}' *ngFor='let field of fields; let i=index;'>
 						<span *ngIf='i!==0 || (i===0 && !row.id)'>{{fields[i] === "date" ? row.date_display : row[field]}}</span>
 						<a *ngIf='i===0 && !!row.id' href='https://www.strava.com/activities/{{row.id}}' target='_blank'>{{row[field]}}</a>
+
+						<span *ngIf='i===0'>
+							<span class='md-expand' (click)=toggleRow(row)>
+								<span *ngIf='!row.isExpanded'>+</span>
+								<span *ngIf='row.isExpanded'>-</span>
+								отрезки
+							</span>
+							<loader type="gray right" [(isLoading)]='row.isLoading'></loader>
+						</span>
+
+						<div *ngIf='i === 0 && row.isExpanded && !row.isLoading'>
+							<table class='md-subtable'>
+								<thead class='md-subhead'>
+									<tr class='md-subrow'>
+										<th *ngFor='let splitCol of tableConfig.splits.colNames' class='md-subcolumn'>{{splitCol}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor='let split of row.detail?.splits'>
+										<td *ngFor='let field of tableConfig.splits.fields' class='md-subcolumn'>{{split[field]}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</td>
 				</tr>
 			</tbody>

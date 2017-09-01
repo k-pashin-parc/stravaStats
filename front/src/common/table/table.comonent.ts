@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
+import { TableConfig } from 'config/table.config';
+import { ActivitiesService } from 'activities/activities.service';
+
 @Component({
 	selector: 'table-common',
 	templateUrl: './table.html',
@@ -13,6 +16,8 @@ export class TableComponent implements OnInit, OnChanges {
 	@Input() label: string;
 	@Input() type: string;
 	@Input() withPagination: boolean;
+
+	constructor(private activitiesService: ActivitiesService) {}
 
 	private PAGE_SIZE: number = 10;
 
@@ -29,6 +34,8 @@ export class TableComponent implements OnInit, OnChanges {
 		endItem: <number>null,
 		totalItems: <number>null
 	};
+
+	private tableConfig = TableConfig;
 
 	private isNumber = function (val: any):boolean {
 		return typeof val === 'number';
@@ -73,6 +80,14 @@ export class TableComponent implements OnInit, OnChanges {
 		this.pagination.hasNextPage = this.getHasNextPage();
 		this.pagination.totalItems = this.data.length;
 		this.pagination.endItem = this.getEndItem();
+	};
+
+	private toggleRow = (item) => {
+		item.isExpanded = !item.isExpanded;
+
+		if (!item.detail) {
+			this.activitiesService.getDetail(item);
+		}
 	};
 
 	ngOnInit () {

@@ -6,5 +6,9 @@ export const TableConfig = {
 	extended: {
 		fields: ['name', 'distance', 'elapsed_time', 'moving_speed', 'total_speed', 'date'],
 		colNames: ['Название', 'Расстояние (км)', 'Времения потрачено (ч)', 'Ср. скрорость в движении (км/ч)', 'Общая скорость (км/ч)', 'Дата'],
+	},
+	splits: {
+		fields: ['distance', 'moving_speed', 'total_speed'],
+		colNames: ['Расстояние (км)', 'Скрорость в движении (км/ч)', 'Общая скорость (км/ч)']
 	}
 };

@@ -264,6 +264,7 @@ table.md-table
   td.md-cell, th.md-column
     vertical-align: middle
     text-align: left
+    position: relative
   td.md-cell > *, th.md-column > *
     vertical-align: middle
   td.md-cell:last-child, th.md-column:last-child
@@ -328,6 +329,10 @@ $table_color_counter: 2012
 
 	$table_color_counter: $table_color_counter + 1
 
+.md-cell
+	&.md-expanded
+		padding-top: 13px !important
+		padding-bottom: 13px !important
 
 .md-column
 	.md-arrow
@@ -338,98 +343,19 @@ $table_color_counter: 2012
 .md-button[disabled] .md-icon
 	opacity: 0.26
 
+.md-expand
+	font-style: 11px
+	color: #039be5
+	float: right
+	cursor: pointer
 
-// @for $i from 2000 through 2100
-// 	.md-season--#{$i}
-// 		&:after
-// 			background: rgb(random(255), random(255), random(255))
+.md-subtable
+	.md-subcolumn
+		font-size: 12px
+		font-weight: normal
+		color: rgba(0, 0, 0, 0.54)
+		padding: 4px 16px 0 0
 
-// table, th, td
-// 	border: none
-
-// table
-// 	width: 100%
-// 	display: table
-// 	&.bordered >
-// 		thead > tr, tbody > tr
-// 			border-bottom: 1px solid #d0d0d0
-// 	&.striped > tbody > tr
-// 		&:nth-child(odd)
-// 			background-color: #f2f2f2
-// 		> td
-// 			border-radius: 0
-// 	&.highlight > tbody > tr
-// 		transition: background-color .25s ease
-// 		&:hover
-// 			background-color: #f2f2f2
-// 	&.centered
-// 		thead tr th, tbody tr td
-// 			text-align: center
-
-// thead
-// 	border-bottom: 1px solid #d0d0d0
-
-// td, th
-// 	padding: 15px 5px
-// 	display: table-cell
-// 	text-align: left
-// 	vertical-align: middle
-// 	border-radius: 2px
-
-// @media only screen and (max-width: 992px)
-// 	table.responsive-table
-// 		width: 100%
-// 		border-collapse: collapse
-// 		border-spacing: 0
-// 		display: block
-// 		position: relative
-
-// 		td:empty:before
-// 			content: '\00a0'
-// 		th, td
-// 			margin: 0
-// 			vertical-align: top
-// 		th
-// 			text-align: left
-// 		thead
-// 			display: block
-// 			float: left
-// 			tr
-// 				display: block
-// 				padding: 0 10px 0 0
-// 				th::before
-// 					content: "\00a0"
-// 		tbody
-// 			display: block
-// 			width: auto
-// 			position: relative
-// 			overflow-x: auto
-// 			white-space: nowrap
-// 			tr
-// 				display: inline-block
-// 				vertical-align: top
-// 		th
-// 			display: block
-// 			text-align: right
-// 		td
-// 			display: block
-// 			min-height: 1.25em
-// 			text-align: left
-// 		tr
-// 			padding: 0 10px
-// 		thead
-// 			border: 0
-// 			border-right: 1px solid #d0d0d0
-// 		&.bordered
-// 			th
-// 				border-bottom: 0
-// 				border-left: 0
-// 			td
-// 				border-left: 0
-// 				border-right: 0
-// 				border-bottom: 0
-// 			tr
-// 				border: 0
-// 			tbody tr
-// 				border-right: 1px solid #d0d0d0
-
+	.md-subhead
+		.md-subcolumn
+			font-weight: bold

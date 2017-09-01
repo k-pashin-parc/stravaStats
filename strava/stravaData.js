@@ -141,7 +141,43 @@ function getActivities (res, page) {
 	});
 }
 
+function getActivity (res, id) {
+	strava.activities.get({
+		access_token: accessToken,
+		id: id
+	}, function (err, payload) {
+		var detail = {
+			splits: []
+		};
+
+		if (err) {
+			res.json(err);
+		} else {
+
+			_.forEach(payload.splits_metric, function (split) {
+				var distance = split.distance / 1000,
+					displayDistance = _.round(distance, 1),
+					movingTime = split.moving_time / 60 / 60,
+					movingSpeed = _.round(distance / movingTime, 1),
+					totalTime = split.elapsed_time / 60 / 60,
+					totalSpeed = _.round(distance / totalTime, 1);
+
+				if (distance) {
+					detail.splits.push({
+						distance: _.round(distance, 2),
+						moving_speed: movingSpeed,
+						total_speed: totalSpeed
+					});
+				}
+			});
+
+			res.json(detail);
+		}
+	});
+}
+
 module.exports = {
 	getActivities: getActivities,
-	init: init
+	init: init,
+	getActivity: getActivity
 };

@@ -31,7 +31,6 @@ export class SkiGraphComponent implements OnInit {
 					data = res.Ski,
 					seasons = data.seasons;
 
-				console.log(seasons);
 				this.ridesAmountParams = {
 					data: seasons,
 					fields: ['ridesAmount', 'quickRidesAmount', 'companyRidesAmount'],

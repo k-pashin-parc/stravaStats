@@ -7,7 +7,24 @@ import { RunDetailComponent } from 'run/detail/run.detail.component';
 import { BikeGraphComponent } from 'bike/graph/bike.graph.component';
 import { BikeDetailComponent } from 'bike/detail/bike.detail.component';
 
+function getDefaultRoute () {
+	var date = new Date,
+		month = date.getMonth() + 1,
+		state = 'ski';
+
+	if (month >= 4 && month < 12) {
+		state = 'run';
+	}
+
+	return state;
+}
+
 export const routes: Routes = [
+	{
+		path: '',
+		redirectTo: getDefaultRoute(),
+		pathMatch: 'full'
+	},
 	{
 		path: 'ski',
 		data: {

@@ -1,11 +1,12 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
+
+import { dataConfig } from './../config/data.config';
 
 @Injectable()
 export class ActivitiesService {
@@ -14,13 +15,13 @@ export class ActivitiesService {
 		detail: '/api/activity'
 	};
 
-	public isLoading: Boolean = false;
-	public activities;
+	private isLoading: Boolean = false;
+	private activities: Object[];
 
 	constructor (private http: Http) {}
 
 	requestActivities (): Observable<Object> {
-		return this.http.get(this.url.summary)
+		return this.http.get(this.url.summary, {params: dataConfig})
 										.map((res) => this.extractActivities(res))
 										.catch((err) => this.handleError(err));
 	}
@@ -31,8 +32,8 @@ export class ActivitiesService {
 		return this.activities ? Observable.of(this.activities) : this.requestActivities();
 	}
 
-	private extractActivities (res: Response) {
-		let body = res.json();
+	private extractActivities (res: Response): Object[] {
+		var body = res.json();
 
 		this.activities = body.data || {};
 		this.isLoading = false;
@@ -40,20 +41,14 @@ export class ActivitiesService {
 		return this.activities;
 	}
 
-	public getDetail = (item) => {
-		let params = {
-			id: item.id
+	public getDetail (id) {
+		var params = {
+			id: id
 		};
 
-		item.isLoading = true;
-
-		this.http
+		return this.http
 			.get(this.url.detail, {params: params})
-			.map(res => res.json())
-			.subscribe(res => {
-				item.detail = res
-				item.isLoading = false;
-			});
+			.map(res => res.json());
 	}
 
 	private handleError (error: Response | any) {

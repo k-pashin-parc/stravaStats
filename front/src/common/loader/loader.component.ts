@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 
 export class LoaderComponent {
-	@Input() type;
 	@Input() isLoading;
+	@Input() diameter: number = 48;
+	@Input() strokeWidth: number = 3;
+	@Input() mode: string = 'indeterminate';
 }

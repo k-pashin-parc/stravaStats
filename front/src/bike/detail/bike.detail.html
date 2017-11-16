@@ -1,12 +1,8 @@
-<div *ngIf='!activitiesService.isLoading'>
-	<table-common
-		label=''
-		[data]=activities
-		[colNames]=tableConfig.common.colNames
-		[fields]=tableConfig.common.fields
-		type='bordered striped color-season'
-		withPagination=true>
-	</table-common>
-</div>
+<mat-table-common
+	*ngIf='!activitiesService.isLoading && activities'
+	[data]='activities'
+	tableType='common'
+>
+</mat-table-common>
 
-<loader type="big" [(isLoading)]='activitiesService.isLoading'></loader>
+<loader [(isLoading)]='activitiesService.isLoading'></loader>

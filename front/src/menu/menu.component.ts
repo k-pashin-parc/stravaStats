@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+interface MenuItem {
+	Name: String,
+	Url: String,
+	Items?: Object[]
+}
+
 @Component({
 	selector: 'main-menu',
 	templateUrl: './menu.html',
@@ -8,29 +14,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class MenuComponent {
-	constructor(private router:Router, route : ActivatedRoute) {
-		router.events.subscribe(event => {
-			let snapshot = route.snapshot;
-			let activated = route.firstChild;
+	private currentMenu: MenuItem;
 
-			if (activated !== null) {
-				while (activated !== null) {
-					snapshot = activated.snapshot;
-					activated = activated.firstChild;
-				}
-			}
-
-			let item = this.items.filter(item => item.Url === snapshot.data['stateName']);
-
-			if (item.length) {
-				this.currentMenu = item[0];
-			}
-		});
-	}
-
-	private currentMenu;
-
-	private items = [{
+	private items: MenuItem[] = [{
 		Name: 'Лыжи',
 		Url: 'ski',
 		Items: [{
@@ -61,4 +47,24 @@ export class MenuComponent {
 			Url: 'detail'
 		}]
 	}];
+
+	constructor(private router:Router, route : ActivatedRoute) {
+		router.events.subscribe(event => {
+			var snapshot = route.snapshot,
+				activated = route.firstChild;
+
+			if (activated !== null) {
+				while (activated !== null) {
+					snapshot = activated.snapshot;
+					activated = activated.firstChild;
+				}
+			}
+
+			let item = this.items.filter(item => item.Url === snapshot.data['stateName']);
+
+			if (item.length) {
+				this.currentMenu = item[0];
+			}
+		});
+	}
 }

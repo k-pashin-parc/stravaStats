@@ -17,6 +17,10 @@ trim_trailing_whitespace = false
 indent_style = tab
 indent_size = 2
 
+[*.ts]
+indent_style = tab
+indent_size = 2
+
 [*.html, *.cshtml]
 insert_final_newline = false
 

@@ -1,0 +1,19 @@
+<div *ngIf="state?.isOpened" class='cdk-overlay-container'>
+	<div class='cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing'></div>
+	<div class='cdk-global-overlay-wrapper'>
+		<div id='cdk-overlay-36' class='cdk-overlay-pane popup' [class.hidden]='state.isLoading'>
+			<div class='cdk-visually-hidden cdk-focus-trap-anchor'></div>
+			<div [@popupAnumation] class='mat-dialog-container'>
+				<div class='title'>{{state?.title}}</div>
+					<div class='content'>
+						<ng-template add-content></ng-template>
+					</div>
+					<div class='mat-dialog-actions'>
+					<div (click)='hide()' class='close'>Закрыть</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<loader [(isLoading)]='state.isLoading'></loader>
+</div>

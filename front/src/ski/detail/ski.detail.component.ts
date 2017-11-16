@@ -1,51 +1,46 @@
-import { HostBinding, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { HostBinding, Component, OnInit, EventEmitter } from '@angular/core';
 import {filter, keys, forOwn, forEach} from 'lodash';
 
 import { ActivitiesService } from 'activities/activities.service';
-import { TableConfig } from 'config/table.config'
 import { routeAnimation } from 'common/animations/animations';
+import { CommonUnsubscribe } from 'common/unsubscribe/unsubscribe.decorator';
 
 @Component({
 	selector: 'ski-detail',
 	templateUrl: './ski.detail.html',
-	animations: [routeAnimation]
+	animations: [routeAnimation],
+	styleUrls: ['./ski.detail.sass']
 })
 
+@CommonUnsubscribe
 export class SkiDetailComponent implements OnInit {
 	@HostBinding('@routeAnimation') routeAnimation = true;
 
+	private activities: Object[];
+	private allActivities: Object[];
+	private request: Object;
+
+	private filterConf: Object[] = [{
+		name: 'Пляж',
+		key: 'is_quick',
+		val: false
+	}, {
+		name: 'Заволга',
+		key: 'is_not_quick',
+		val: true
+	}, {
+		name: 'Чайка',
+		key: 'is_on_base',
+		val: false
+	}];
+
 	constructor(private activitiesService: ActivitiesService) {}
 
-	private activities;
-	private allActivities;
-	private tableConfig = TableConfig;
-
-	private activityKind = {
-		// is_quick: true,
-		is_not_quick: true,
-		// is_on_base: true
-	};
-
-	private filterActivities = () => {
-		var res = [];
-
-		forEach(this.allActivities, (act) => {
-			forOwn(this.activityKind, (val, key) => {
-				if (val && act[key]) {
-					res.push(act)
-				}
-			});
-		});
-
-		this.activities = res;
-	};
-
 	ngOnInit () {
-		this.activitiesService.getActivities()
+		this.request = this.activitiesService.getActivities()
 			.subscribe((res: any) => {
-				// console.log(res);
-				this.allActivities = res.Ski.activities;
-				this.filterActivities();
+				this.activities = res.Ski.activities;
 			});
 	}
 }

@@ -18,10 +18,9 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-      	"../node_modules/normalize.css/normalize.css",
-        "_styles/material.css",
-        "_styles/global.css",
-        "_styles/content.css"
+				"../node_modules/normalize.css/normalize.css",
+				"../node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+				"_styles/global.sass"
       ],
       "scripts": [
 				"../node_modules/chart.js/dist/Chart.bundle.min.js"

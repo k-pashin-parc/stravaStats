@@ -6,6 +6,7 @@ var _ = require('lodash'),
 
 	config = require('../config'),
 	stravaData = require('../strava/stravaData'),
+	exampleData = require('../strava/exampleData'),
 	accessToken = config.accessToken,
 	activities;
 
@@ -121,24 +122,36 @@ function init () {
 	activities = [];
 }
 
-function getActivities (res, page) {
-	strava.athlete.listActivities({
-		access_token: accessToken,
-		per_page: 200,
-		page: page
-	}, function (err, payload) {
-		if (!err) {
-			if (payload && payload.length) {
-				activities = activities.concat(payload);
-				page++;
-				getActivities(res, page);
+function getActivities (params) {
+	var res = params.res,
+		page = params.page,
+		isExampleData = params.isExampleData;
+
+	if (isExampleData == 'true') {
+		res.json(exampleData.getData());
+	} else {
+		strava.athlete.listActivities({
+			access_token: accessToken,
+			per_page: 200,
+			page: page
+		}, function (err, payload) {
+			if (!err) {
+				if (payload && payload.length) {
+					activities = activities.concat(payload);
+					page++;
+
+					getActivities({
+						res: res,
+						page: page
+					});
+				} else {
+					res.json({data: formatData(activities)});
+				}
 			} else {
-				res.json({data: formatData(activities)});
+				res.json(err);
 			}
-		} else {
-			res.json(err);
-		}
-	});
+		});
+	}
 }
 
 function getActivity (res, id) {
@@ -147,14 +160,14 @@ function getActivity (res, id) {
 		id: id
 	}, function (err, payload) {
 		var detail = {
-			splits: []
+			result: []
 		};
 
 		if (err) {
 			res.json(err);
 		} else {
 
-			_.forEach(payload.splits_metric, function (split) {
+			_.forEach(payload.splits_metric, function (split, index) {
 				var distance = split.distance / 1000,
 					displayDistance = _.round(distance, 1),
 					movingTime = split.moving_time / 60 / 60,
@@ -163,7 +176,8 @@ function getActivity (res, id) {
 					totalSpeed = _.round(distance / totalTime, 1);
 
 				if (distance) {
-					detail.splits.push({
+					detail.result.push({
+						index: index + 1,
 						distance: _.round(distance, 2),
 						moving_speed: movingSpeed,
 						total_speed: totalSpeed

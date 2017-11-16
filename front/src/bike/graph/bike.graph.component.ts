@@ -2,6 +2,7 @@ import { HostBinding, Component, OnInit } from '@angular/core';
 
 import { ActivitiesService } from 'activities/activities.service';
 import { routeAnimation } from 'common/animations/animations';
+import { CommonUnsubscribe } from 'common/unsubscribe/unsubscribe.decorator';
 
 @Component({
 	selector: 'bike-graph',
@@ -9,19 +10,21 @@ import { routeAnimation } from 'common/animations/animations';
 	animations: [routeAnimation]
 })
 
+@CommonUnsubscribe
 export class BikeGraphComponent implements OnInit {
 	@HostBinding('@routeAnimation') routeAnimation = true;
 
 	constructor(private activitiesService: ActivitiesService) {}
 
-	private activities;
+	private activities: Object[];
 
-	private ridesAmountParams;
-	private totalDistanceParams;
-	private spentParams;
+	private ridesAmountParams: Object;
+	private totalDistanceParams: Object;
+	private spentParams: Object;
+	private request: Object;
 
 	ngOnInit () {
-		this.activitiesService.getActivities()
+		this.request = this.activitiesService.getActivities()
 			.subscribe((res: any) => {
 				let data = res.Ride;
 				let seasons = data.seasons;

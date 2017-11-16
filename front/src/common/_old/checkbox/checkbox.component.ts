@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+
+import { MatCheckboxModule } from '@angular/material';
 
 @Component({
 	selector: 'checkbox',
@@ -7,7 +9,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 
 export class CheckboxComponent {
-	@Input() data;
+	@Input() model;
+
 	@Input() label;
 	@Input() className;
 

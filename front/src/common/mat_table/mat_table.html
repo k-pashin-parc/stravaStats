@@ -1,0 +1,30 @@
+<div *ngIf='filterConf' class='filter-checkboxes' #filterCheckboxes>
+	<mat-checkbox *ngFor='let filter of filterConf' [(ngModel)]='filter.val'	align='start'>{{filter.name}}</mat-checkbox>
+</div>
+
+<div class='mat-elevation-z8 {{classes}}' [class.empty_table]='dataSource.isEmpty'>
+  <mat-table #table [dataSource]='dataSource' matSort>
+
+    <ng-container *ngFor='let field of tableConfig.fields; let i = index;' matColumnDef='{{field}}'>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{tableConfig.colNames[i]}} </mat-header-cell>
+      <mat-cell *matCellDef='let element'>
+				<span *ngIf='i === 0 && element.id'>
+					<a class='link' href='https://www.strava.com/activities/{{element.id}}' target='_blank'>{{element[field]}}</a>
+					<span class='detail link' (click)='showSplitsPopup(element.id, element.name, splitsComponent)'>отрезки</span>
+				</span>
+
+				<span *ngIf='i !== 0 || i === 0 && !element.id'>{{field === 'date' ? element['date_display'] : element[field]}}</span>
+			</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef='tableConfig.fields'></mat-header-row>
+    <mat-row *matRowDef='let row; columns: tableConfig.fields;'></mat-row>
+	</mat-table>
+</div>
+
+<div *ngIf='filterConf && dataSource.isEmpty' class='no_data_block-wrapper'>
+	<div class='no_data_block'>
+		<i class="material-icons">filter</i>
+		<div>Нет данных</div>
+	</div>
+</div>

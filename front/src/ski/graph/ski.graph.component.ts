@@ -2,6 +2,7 @@ import { HostBinding, Component, OnInit } from '@angular/core';
 
 import { ActivitiesService } from 'activities/activities.service';
 import { routeAnimation } from 'common/animations/animations';
+import { CommonUnsubscribe } from 'common/unsubscribe/unsubscribe.decorator';
 
 @Component({
 	selector: 'ski-graph',
@@ -9,26 +10,28 @@ import { routeAnimation } from 'common/animations/animations';
 	animations: [routeAnimation]
 })
 
+@CommonUnsubscribe
 export class SkiGraphComponent implements OnInit {
 	@HostBinding('@routeAnimation') routeAnimation = true;
 
+	private activities: Object[];
+	private ridesAmountParams: Object;
+	private speedParams: Object;
+	private detailSpeedParams: Object;
+	private totalDistanceParams: Object;
+	private spentParams: Object;
+	private request: Object;
+
 	constructor(private activitiesService: ActivitiesService) {}
 
-	private activities;
-
-	private ridesAmountParams;
-	private speedParams;
-	private detailSpeedParams;
-	private totalDistanceParams;
-	private spentParams;
-
 	ngOnInit () {
-		this.activitiesService.getActivities()
+		this.request = this.activitiesService.getActivities()
 			.subscribe((res: any) => {
-				res = res || {};
-				let data = res.Ski;
-				let seasons = data.seasons;
+				var res = res || {},
+					data = res.Ski,
+					seasons = data.seasons;
 
+				console.log(seasons);
 				this.ridesAmountParams = {
 					data: seasons,
 					fields: ['ridesAmount', 'quickRidesAmount', 'companyRidesAmount'],
@@ -60,9 +63,6 @@ export class SkiGraphComponent implements OnInit {
 				};
 
 				this.activities = data;
-			},
-			(err: any) => {
-				alert(err);
 			});
 	}
 }

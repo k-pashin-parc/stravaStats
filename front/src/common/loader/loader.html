@@ -1,11 +1,8 @@
-<div class='preloader-wrapper {{type}}' *ngIf='isLoading'>
-	<div class='spinner-layer'>
-		<div class='circle-clipper left'>
-			<div class='circle'></div>
-		</div>
-		<div class='circle-clipper right'>
-			<div class='circle'></div>
-		</div>
-	</div>
+<div class='wrapper'>
+	<mat-progress-spinner
+		*ngIf='isLoading'
+		[diameter]='diameter'
+		[strokeWidth]='strokeWidth'
+		[mode]='mode'>
+	</mat-progress-spinner>
 </div>
-

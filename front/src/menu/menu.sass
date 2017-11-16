@@ -1,149 +1,20 @@
-nav
-  color: #fff
-  background-color: #24292e
-  width: 100%
-  height: 72px
-  line-height: 72px
-  a
-    color: #fff
-  i, [class^="mdi-"], [class*="mdi-"], i.material-icons
-    display: block
-    font-size: 2rem
-    height: 56px
-    line-height: 56px
-  .nav-wrapper
-    position: relative
-    height: 100%
-  .button-collapse
-    float: left
-    position: relative
-    z-index: 1
-    height: 56px
-    i
-      font-size: 2.7rem
-      height: 56px
-      line-height: 56px
-  .brand-logo
-    position: absolute
-    color: #fff
-    display: inline-block
-    font-size: 2.1rem
-    padding: 0
-    white-space: nowrap
-    &.center
-      left: 50%
-      -webkit-transform: translateX(-50%)
-      transform: translateX(-50%)
-    &.right
-      right: 0.5rem
-      padding: 0
-  ul
-    margin: 0
-    li
-      transition: background-color .3s
-      float: left
-      padding: 0
-      &.active
-        background-color: rgba(0, 0, 0, 0.1)
-    a, .disabled
-      transition: background-color .3s
-      font-size: 1rem
-      color: #fff
-      display: inline-block
-      padding: 0 15px
-      cursor: pointer
-      &.btn, &.btn-large, &.btn-flat, &.btn-floating
-        margin-top: -2px
-        margin-left: 15px
-        margin-right: 15px
-      &:hover
-        background-color: rgba(0, 0, 0, 0.3)
-    &.left
-      float: left
-  .input-field
-    margin: 0
-    input
-      height: 100%
-      font-size: 1.2rem
-      border: none
-      padding-left: 2rem
-      &:focus, &[type=text]:valid, &[type=password]:valid, &[type=email]:valid, &[type=url]:valid, &[type=date]:valid
-        border: none
-        box-shadow: none
-    label
-      top: 0
-      left: 0
-      i
-        color: rgba(255, 255, 255, 0.7)
-        transition: color .3s
-      &.active
-        i
-          color: #fff
-        -webkit-transform: translateY(0)
-        transform: translateY(0)
+@import '~@angular/material/theming'
 
-@media only screen and (min-width: 993px)
-  nav a.button-collapse
-    display: none
+.header
+	padding: 8px 16px
+	background: mat-color($mat-indigo, 500)
+	position: relative
+	z-index: 1
 
-@media only screen and (max-width: 992px)
-  nav .brand-logo
-    left: 50%
-    -webkit-transform: translateX(-50%)
-    transform: translateX(-50%)
-    &.left, &.right
-      padding: 0
-      -webkit-transform: none
-      transform: none
-    &.left
-      left: 0.5rem
-    &.right
-      right: 0.5rem
-      left: auto
+	.button-row
+		text-align: right
 
-.navbar-fixed
-  position: relative
-  height: 56px
-  z-index: 998
-  nav
-    position: fixed
+		.mat-button
+			color: rgba(255, 255, 255, 0.87)
 
-@media only screen and (min-width: 601px)
-  nav
-    position: relative
-    height: 80px
-    line-height: 80px
+			&.mat-button--active
+				background-color: rgba(0, 0, 0 ,.12)
 
-    .nav-wrapper i
-      height: 80px
-      line-height: 80px
 
-    a.button-collapse
-      height: 80px
-      line-height: 80px
-
-      i
-        height: 80px
-        line-height: 80px
-  .navbar-fixed
-    height: 80px
-
-.selected
-  border-bottom: 3px solid #ee6e73
-
-.left
-	float: left !important
-
-.right
-	float: right !important
-
-.nav-content
-	position: absolute
-	left: 0
-	bottom: 0
-	line-height: 32px
-	height: 32px
-
-.disabled
-	cursor: default !important
-	opacity: .5
+[mat-tab-nav-bar]
+	background: #fff

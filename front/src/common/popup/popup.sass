@@ -1,0 +1,33 @@
+@import '~@angular/material/theming'
+
+.cdk-global-overlay-wrapper
+	justify-content: center
+	align-items: center
+
+.popup
+	width: 610px
+	max-height: 500px
+
+	.title
+		padding: 16px 24px
+		border-bottom: 1px solid rgba(0,0,0,.12)
+
+	.content
+		max-height: 510px
+		overflow: auto
+
+.mat-dialog-actions
+	display: flex
+	justify-content: flex-end
+	border-top: 1px solid rgba(0 , 0, 0 ,.12)
+	position: relative
+	top: -1px
+	padding: 2px 0
+	background: #fff
+
+	.close
+		font-size: 14px
+		padding: 8px 24px
+		cursor: pointer
+		color: mat-color($mat-light-blue, 500)
+

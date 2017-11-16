@@ -2,42 +2,56 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { ChartsModule } from 'ng2-charts';
+import { MatTabsModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MatSortModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
+import { Sort } from '@angular/material';
 
 import { LoaderComponent } from './loader/loader.component';
-import { TextfieldComponent } from './textfield/textfield.component';
-import { BtnComponent } from './btn/btn.component';
-import { TableComponent} from './table/table.comonent';
 import { ChartComponent} from './chart/chart.component';
-import { OrderByPipe } from './pipes/order.pipe';
-import { CheckboxComponent } from './checkbox/checkbox.component'
+import { MatTableCommonComponent } from './mat_table/mat_table.component';
+
+import { CommonPopupService } from './popup/popup.service';
+import { CommonPopupComponent } from './popup/popup.component';
+import { AddContentDirective } from './add_content/add.content.directive';
 
 @NgModule({
 	declarations: [
-		BtnComponent,
 		LoaderComponent,
-		TextfieldComponent,
-		TableComponent,
 		ChartComponent,
-		OrderByPipe,
-		CheckboxComponent
+		MatTableCommonComponent,
+		CommonPopupComponent,
+		AddContentDirective
 	],
 	exports: [
-		BtnComponent,
 		LoaderComponent,
-		TextfieldComponent,
-		TableComponent,
 		ChartComponent,
-		OrderByPipe,
-		CheckboxComponent
+		MatTabsModule,
+		MatButtonModule,
+		MatTableCommonComponent,
+		MatSortModule,
+		MatCheckboxModule,
+		CommonPopupComponent,
+		AddContentDirective
 	],
 	imports: [
 		BrowserModule,
 		HttpModule,
 		FormsModule,
-		ChartsModule
-	]
+		ChartsModule,
+		MatProgressSpinnerModule,
+		MatTableModule,
+		CdkTableModule,
+		MatSortModule,
+		MatCheckboxModule
+	],
+	providers: [CommonPopupService]
 })
 
 export class CommonComponentsModule {}

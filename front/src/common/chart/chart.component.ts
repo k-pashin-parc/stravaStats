@@ -7,40 +7,40 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class ChartComponent implements OnInit {
-	@Input() params: object;
-	@Input() classes: string;
+	@Input() params: Object;
+	@Input() classes: String;
 
-	private barChartOptions:object = {
+	private barChartOptions: Object = {
 		scaleShowVerticalLines: false,
 		responsive: true,
 		scales: {
 			yAxes: [{
 				ticks: {
-					beginAtZero:true
+					beginAtZero: true
 				}
 			}]
 		}
 	};
 
-	private colors: object[] = [{
-		backgroundColor: '#86C7F3'
+	private colors: Object[] = [{
+		backgroundColor: '#FF7043'
 	}, {
-		backgroundColor: '#f59fa2'
+		backgroundColor: '#7986CB'
 	}, {
-		backgroundColor: '#FFE29A'
+		backgroundColor: '#9575CD'
 	}, {
-		backgroundColor: '#93D9D9'
+		backgroundColor: '#81C784'
 	}, {
-		backgroundColor: '#4BC0C0'
+		backgroundColor: '#64B5F6'
 	}];
 
 	private barChartType: String = 'bar';
 	private barChartLegend: Boolean = true;
 	private barChartLabels: String[];
-	private barChartData :any[];
+	private barChartData: Object[];
 
 	private getBarData = function (params) {
-		let res = {
+		var res = {
 			barData: [],
 			labels: []
 		};
@@ -66,7 +66,7 @@ export class ChartComponent implements OnInit {
 	}
 
 	ngOnInit () {
-		let data = this.getBarData(this.params);
+		var data = this.getBarData(this.params);
 
 		this.barChartLabels = data.labels;
 		this.barChartData = data.barData;

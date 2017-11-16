@@ -1,16 +1,17 @@
-<nav class='nav-extended'>
-	<div class='nav-wrapper'>
-		<ul class='right hide-on-med-and-down'>
-			<li *ngFor='let item of items'>
-				<a *ngIf='!item.IsDisabled' routerLink='{{item.Url}}' routerLinkActive='selected'>{{item.Name}}</a>
-				<span *ngIf='item.IsDisabled' class='disabled'>{{item.Name}}</span>
-			</li>
-		</ul>
+<div class='header mat-elevation-z6'>
+	<div class='button-row'>
+		<a *ngFor='let item of items' mat-button class='mat-button' [routerLink]='item.Url' routerLinkActive='mat-button--active'>{{item.Name}}</a>
 	</div>
-	<div class='nav-content' *ngIf='currentMenu'>
-		<ul class='tabs tabs-transparent'>
-			<li class='tab' *ngFor='let subItem of currentMenu.Items'>
-				<a routerLink='{{currentMenu.Url}}/{{subItem.Url}}' routerLinkActive='selected'>{{subItem.Name}}</a>
-		</ul>
-	</div>
-</nav>
+</div>
+
+<div *ngIf='currentMenu' class='z'>
+	<nav mat-tab-nav-bar>
+		<a mat-tab-link
+			*ngFor='let subItem of currentMenu.Items'
+			routerLink='{{currentMenu.Url}}/{{subItem.Url}}'
+			routerLinkActive #rla='routerLinkActive'
+			[active]='rla.isActive'>
+			{{subItem.Name}}
+		</a>
+	</nav>
+</div>

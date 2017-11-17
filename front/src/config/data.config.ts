@@ -1,3 +1,4 @@
 export const dataConfig = {
-	isExampleData: false
+	isExampleData: true,
+	defaultRoute: 'ski'
 };

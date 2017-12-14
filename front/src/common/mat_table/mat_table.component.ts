@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnChanges, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { MatSort } from '@angular/material';
@@ -41,11 +42,17 @@ export class MatTableCommonComponent implements OnInit {
 	private tableConfig: Object;
 	private splitsComponent = SplitsComponent;
 
-	constructor(private commonPopupService: CommonPopupService, private activitiesService: ActivitiesService) {}
+	constructor(private commonPopupService: CommonPopupService, private activitiesService: ActivitiesService, private route: ActivatedRoute) {}
 
 	ngOnInit () {
 		this.tableConfig = TableConfig[this.tableType];
 		this.dataSource = new TableDataSource(this.data, this.sort, this.filterConf);
+
+		this.route.params.subscribe((param) => {
+			if (param.id) {
+				this.showSplitsPopup(param.id, this.splitsComponent);
+			}
+		});
 
 		if (this.filterConf) {
 			setTimeout( () => {
@@ -62,9 +69,8 @@ export class MatTableCommonComponent implements OnInit {
 		}
 	}
 
-	showSplitsPopup (id, name, contentComponent) {
+	showSplitsPopup (id, contentComponent) {
 		this.commonPopupService.show({
-			title: name,
 			contentDataReq: this.activitiesService.getDetail(id),
 			contentComponent: contentComponent
 		});
@@ -75,6 +81,8 @@ export class TableDataSource extends DataSource<any> {
 	private dataChange = new BehaviorSubject(this.data);
 	private originalData: Object[];
 	private isEmpty: Boolean;
+
+	_filterChange = new BehaviorSubject('');
 
 	constructor(private data: Array<Object>, private _sort: MatSort, private filterConf: Object[]) {
 		super();
@@ -92,8 +100,6 @@ export class TableDataSource extends DataSource<any> {
 			this._filterChange.next(filter);
 		}, 0);
 	}
-
-	_filterChange = new BehaviorSubject('');
 
 	connect(): Observable<Object[]> {
 		const displayDataChanges = [

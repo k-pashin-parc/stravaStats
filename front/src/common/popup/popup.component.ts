@@ -6,20 +6,20 @@ import { SplitsComponent } from './../../splits/splits.component';
 import { AddContentDirective } from './../../common/add_content/add.content.directive';
 
 @Component({
-	 selector: 'common-popup',
-	 templateUrl: './popup.html',
-	 styleUrls: ['popup.sass'],
-	 animations: [
-    trigger('popupAnumation', [
-      transition('void => *', [
-        style({ transform: 'scale3d(.3, .3, .3)' }),
-        animate(100)
-      ]),
-      transition('* => void', [
-        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
-      ])
-    ])
-  ]
+	selector: 'common-popup',
+	templateUrl: './popup.html',
+	styleUrls: ['popup.sass'],
+	animations: [
+		trigger('popupAnumation', [
+			transition('void => *', [
+				style({ transform: 'scale3d(.3, .3, .3)' }),
+				animate(100)
+			]),
+			transition('* => void', [
+				animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
+			])
+		])
+	]
 })
 
 export class CommonPopupComponent {
@@ -43,7 +43,7 @@ export class CommonPopupComponent {
 						componentRef;
 
 					state.isLoading = false;
-					this.data = res.result;
+					this.data = res;
 
 					componentFactory = this.componentFactoryResolver.resolveComponentFactory(state.contentComponent);
 					viewContainerRef = this.addContent.viewContainerRef;
@@ -55,8 +55,6 @@ export class CommonPopupComponent {
 				});
 			}
 		});
-
-
 	}
 
 	hide () {

@@ -160,12 +160,13 @@ function getActivity (res, id) {
 		id: id
 	}, function (err, payload) {
 		var detail = {
-			result: []
+			splits: []
 		};
 
 		if (err) {
 			res.json(err);
 		} else {
+			detail.name = payload.name;
 
 			_.forEach(payload.splits_metric, function (split, index) {
 				var distance = split.distance / 1000,
@@ -176,7 +177,7 @@ function getActivity (res, id) {
 					totalSpeed = _.round(distance / totalTime, 1);
 
 				if (distance) {
-					detail.result.push({
+					detail.splits.push({
 						index: index + 1,
 						distance: _.round(distance, 2),
 						moving_speed: movingSpeed,

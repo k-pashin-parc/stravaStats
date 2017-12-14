@@ -29,6 +29,9 @@ export const routes: Routes = [
 		}, {
 			path: 'detail',
 			component: SkiDetailComponent
+		}, {
+			path: 'detail/:id',
+			component: SkiDetailComponent
 		}]
 	},
 	{
@@ -46,6 +49,9 @@ export const routes: Routes = [
 		}, {
 			path: 'detail',
 			component: RunDetailComponent
+		}, {
+			path: 'detail/:id',
+			component: RunDetailComponent
 		}]
 	},
 	{
@@ -62,6 +68,9 @@ export const routes: Routes = [
 			component: BikeGraphComponent
 		}, {
 			path: 'detail',
+			component: BikeDetailComponent
+		}, {
+			path: 'detail/:id',
 			component: BikeDetailComponent
 		}]
 	}

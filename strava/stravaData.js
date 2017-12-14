@@ -92,16 +92,23 @@ function formatData (allActivities) {
 			season.totalSpeed = _.round(season.totalDistance / season.elapsedTime, 1);
 
 			if (key === 'Ski') {
+				let notQuickRides = _.filter(activities, 'is_not_quick'),
+					notQuickRidesDistance = _.sum(_.map(notQuickRides, 'distance'));
+
 				season.quickRides = _.filter(activities, 'is_quick');
 				season.quickRidesAmount = _.keys(_.groupBy(season.quickRides, 'date_display')).length;
-				season.quickRidesDistance = _.round(_.sum(_.map(season.quickRides, 'distance')), 1);
-				season.quickRidesMovingSpeed = _.round(season.quickRidesDistance / _.sum(_.map(season.quickRides, 'moving_time')), 1);
-				season.quickRidesElapsedTime = _.round(_.sum(_.map(season.quickRides, 'elapsed_time')), 1);
+				season.quickRidesDistance = _.sum(_.map(season.quickRides, 'distance'));
+				season.quickRidesMovingTime = _.sum(_.map(season.quickRides, 'moving_time'));
+				season.quickRidesMovingSpeed = season.quickRidesDistance / season.quickRidesMovingTime;
+				season.quickRidesElapsedTime = _.sum(_.map(season.quickRides, 'elapsed_time'));
 				season.quickRidesTotalSpeed = _.round(season.quickRidesDistance / season.quickRidesElapsedTime, 1);
 
-				season.notQuickRidesMovingSpeed = _.round((season.totalDistance - season.quickRidesDistance) / (season.movingTime - season.quickRidesMovingSpeed), 1);
-				season.notQuickRidesTotalSpeed = _.round((season.totalDistance - season.quickRidesDistance) / (elapsedTimeTotal - season.quickRidesElapsedTime), 1);
-				season.quickRidesTotalSpeed = _.round(season.quickRidesDistance / season.quickRidesElapsedTime , 1);
+				season.notQuickRidesMovingSpeed = _.round(notQuickRidesDistance / _.sum(_.map(notQuickRides, 'moving_time')), 1);
+				season.notQuickRidesTotalSpeed = _.round(notQuickRidesDistance / _.sum(_.map(notQuickRides, 'elapsed_time')), 1);
+
+				season.quickRidesDistance = _.round(season.quickRidesDistance, 1);
+				season.quickRidesMovingSpeed = _.round(season.quickRidesMovingSpeed, 1);
+				season.quickRidesElapsedTime = _.round(season.quickRidesElapsedTime, 1);
 			}
 
 			season.companyRidesDistance = _.round(_.sum(_.map(companyRides, 'distance')), 1);

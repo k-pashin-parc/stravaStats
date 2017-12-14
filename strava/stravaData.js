@@ -27,7 +27,7 @@ function getSeason (activity, isSki) {
 }
 
 function getSeasonName (activity, season) {
-	return getIsSki(activity) ? `${season}/${season + 1}` : season;
+	return getIsSki(activity) ? `${season}/${parseInt(season, 10) + 1}` : season;
 }
 
 function formatData (allActivities) {

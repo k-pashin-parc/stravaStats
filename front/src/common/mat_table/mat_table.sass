@@ -1,5 +1,9 @@
 @import '~@angular/material/theming'
 
+.mat-cell
+	position: relative
+	// min-height: 56px !important
+
 .link
 	text-decoration: none
 	color: mat-color($mat-light-blue, 500)
@@ -50,12 +54,40 @@
 	.mat-column-date
 		flex: 0 0 192px
 
+.segments
+	.mat-column-name
+		flex: 0 0 368px
+
+	.mat-column-distance
+		flex: 0 0 120px
+
+	.mat-column-total_time
+		flex: 0 0 104px
+
+	.mat-column-moving_time,
+	.mat-column-total_speed
+		flex: 0 0 144px
+
 .no-shadow
 	box-shadow: none !important
 
 .border_top
 	border-top: 1px solid rgba(0,0,0,.12)
 
-.detail
-	float: right
-	padding: 0 32px 0 16px
+.details
+	display: none
+	background: #fff
+	position: absolute
+	top: 50%
+	right: 0
+	transform: translateY(-50%)
+	padding-left: 16px
+
+	.detail
+		float: right
+		padding: 0 16px 0 0
+
+.mat-row
+	&:hover
+		.details
+			display: block

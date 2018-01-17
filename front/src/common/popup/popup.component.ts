@@ -3,6 +3,7 @@ import { CommonPopupService } from './popup.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { SplitsComponent } from './../../splits/splits.component';
+import { SegmentsComponent } from './../../segments/segments.component';
 import { AddContentDirective } from './../../common/add_content/add.content.directive';
 
 @Component({

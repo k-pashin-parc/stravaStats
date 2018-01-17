@@ -9,8 +9,11 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> {{tableConfig.colNames[i]}} </mat-header-cell>
       <mat-cell *matCellDef='let element'>
 				<span *ngIf='i === 0 && element.id'>
-					<a class='link' href='https://www.strava.com/activities/{{element.id}}' target='_blank'>{{element[field]}}</a>
-					<span class='detail link' (click)='showSplitsPopup(element.id, splitsComponent)'>отрезки</span>
+					<a class='link name' href='https://www.strava.com/activities/{{element.id}}' target='_blank'>{{element[field]}}</a>
+					<div class='details'>
+						<span class='detail link' (click)='showSplitsPopup(element.id, splitsComponent)'>отрезки</span>
+						<span class='detail link' (click)='showSegmentsPopup(element.id, segmentsComponent)'>сегменты</span>
+					</div>
 				</span>
 
 				<span *ngIf='i !== 0 || i === 0 && !element.id'>{{field === 'date' ? element['date_display'] : element[field]}}</span>

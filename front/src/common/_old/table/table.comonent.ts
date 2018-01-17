@@ -85,9 +85,9 @@ export class TableComponent implements OnInit, OnChanges {
 	private toggleRow = (item) => {
 		item.isExpanded = !item.isExpanded;
 
-		if (!item.detail) {
-			this.activitiesService.getDetail(item);
-		}
+		// if (!item.detail) {
+		// 	this.activitiesService.getDetail(item);
+		// }
 	};
 
 	ngOnInit () {

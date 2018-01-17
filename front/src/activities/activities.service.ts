@@ -12,7 +12,8 @@ import { dataConfig } from './../config/data.config';
 export class ActivitiesService {
 	private url = {
 		summary: '/api/summary',
-		detail: '/api/activity'
+		splits: '/api/splits',
+		segments: '/api/segments'
 	};
 
 	private isLoading: Boolean = false;
@@ -41,13 +42,23 @@ export class ActivitiesService {
 		return this.activities;
 	}
 
-	public getDetail (id) {
+	public getSpilts (id) {
 		var params = {
 			id: id
 		};
 
 		return this.http
-			.get(this.url.detail, {params: params})
+			.get(this.url.splits, {params: params})
+			.map(res => res.json());
+	}
+
+	public getSegments (id) {
+		var params = {
+			id: id
+		};
+
+		return this.http
+			.get(this.url.segments, {params: params})
 			.map(res => res.json());
 	}
 

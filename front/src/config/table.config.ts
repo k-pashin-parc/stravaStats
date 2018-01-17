@@ -10,5 +10,9 @@ export const TableConfig = {
 	splits: {
 		fields: ['index', 'distance', 'moving_speed', 'total_speed'],
 		colNames: ['№ км п/п', 'Расстояние (км)', 'Скрорость в движении (км/ч)', 'Общая скорость (км/ч)']
+	},
+	segments: {
+		fields: ['name', 'distance', 'moving_speed', 'total_time', 'total_speed'],
+		colNames: ['Название', 'Расстояние (км)', 'Скрорость в движении (км/ч)', 'Время (мин)', 'Общая скорость (км/ч)']
 	}
 };

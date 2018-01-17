@@ -24,7 +24,7 @@ export class SkiDetailComponent implements OnInit {
 	private filterConf: Object[] = [{
 		name: 'Пляж',
 		key: 'is_quick',
-		val: false
+		val: true
 	}, {
 		name: 'Заволга',
 		key: 'is_not_quick',
@@ -32,7 +32,7 @@ export class SkiDetailComponent implements OnInit {
 	}, {
 		name: 'Чайка',
 		key: 'is_on_base',
-		val: false
+		val: true
 	}];
 
 	constructor(private activitiesService: ActivitiesService) {}

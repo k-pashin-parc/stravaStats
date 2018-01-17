@@ -17,8 +17,14 @@ function mainStatsRoute (app) {
 		.get('/api/exampleJson', function (req, res) {
 			res.json(exampleData.getData());
 		})
-		.get('/api/activity', function (req, res) {
-			stravaData.getActivity(res, req.query.id);
+		.get('/api/splits', function (req, res) {
+			stravaData.getSplits(res, req.query.id);
+		})
+		.get('/api/segments', function (req, res) {
+			stravaData.getSegments(res, req.query.id);
+		})
+		.get('/api/test/', function (req, res) {
+			stravaData.getSegment(res, req.query.id);
 		});
 }
 

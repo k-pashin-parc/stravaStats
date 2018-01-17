@@ -20,6 +20,7 @@ import { BikeGraphComponent } from 'bike/graph/bike.graph.component';
 import { BikeDetailComponent } from 'bike/detail/bike.detail.component';
 
 import { SplitsComponent } from 'splits/splits.component';
+import { SegmentsComponent } from 'segments/segments.component';
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,8 @@ import { SplitsComponent } from 'splits/splits.component';
 		RunDetailComponent,
 		BikeGraphComponent,
 		BikeDetailComponent,
-		SplitsComponent
+		SplitsComponent,
+		SegmentsComponent
 	],
 	imports: [
 		BrowserModule,
@@ -45,7 +47,7 @@ import { SplitsComponent } from 'splits/splits.component';
 	],
 	providers: [ActivitiesService],
 	bootstrap: [AppComponent],
-	entryComponents: [SplitsComponent]
+	entryComponents: [SplitsComponent, SegmentsComponent]
 })
 
 export class AppModule {}

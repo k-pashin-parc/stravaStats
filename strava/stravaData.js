@@ -10,6 +10,17 @@ var _ = require('lodash'),
 	accessToken = config.accessToken,
 	activities;
 
+function getSpeed (distance, time) {
+	var time = time / 60 / 60,
+		distance = distance / 1000;
+
+	return _.round(distance / time, 1);
+}
+
+function formatDistance (distance) {
+	return _.round(distance / 1000, 1);
+}
+
 function getIsSki (activity) {
 	return activity.type === 'BackcountrySki' || activity.type === 'NordicSki';
 }
@@ -161,7 +172,7 @@ function getActivities (params) {
 	}
 }
 
-function getActivity (res, id) {
+function getSplits (res, id) {
 	strava.activities.get({
 		access_token: accessToken,
 		id: id
@@ -198,8 +209,39 @@ function getActivity (res, id) {
 	});
 }
 
+function getSegments (res, id) {
+	strava.activities.get({
+		access_token: accessToken,
+		id: id
+	}, function (err, payload) {
+		var detail = {
+			segments: []
+		};
+
+		if (err) {
+			res.json(err);
+		} else {
+			detail.name = payload.name;
+
+			_.forEach(payload.segment_efforts, function (segment) {
+				detail.segments.push({
+					name: segment.name,
+					distance: formatDistance(segment.distance),
+					achievements: _.pick(segment.achievements, 'type', 'rank'),
+					moving_speed: getSpeed(segment.distance, segment.moving_time),
+					total_speed: getSpeed(segment.distance, segment.elapsed_time),
+					total_time: _.round(segment.elapsed_time / 60, 2)
+				});
+			});
+
+			res.json(detail);
+		}
+	});
+}
+
 module.exports = {
 	getActivities: getActivities,
 	init: init,
-	getActivity: getActivity
+	getSplits: getSplits,
+	getSegments: getSegments
 };

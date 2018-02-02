@@ -23,8 +23,11 @@ function mainStatsRoute (app) {
 		.get('/api/segments', function (req, res) {
 			stravaData.getSegments(res, req.query.id);
 		})
-		.get('/api/test/', function (req, res) {
-			stravaData.getSegment(res, req.query.id);
+		.get('/api/segmentLeaderboard', function (req, res) {
+			stravaData.getSegmentLeaderboard(res, req.query.id, req.query.distance);
+		})
+		.get('/api/segmentMyEfforts', function (req, res) {
+			stravaData.getSegmentMyEfforts(res, req.query.id);
 		});
 }
 

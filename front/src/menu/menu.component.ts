@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CommonTitleService} from 'common/title/title.service';
 
 interface MenuItem {
 	Name: String,
@@ -48,9 +49,11 @@ export class MenuComponent {
 		}]
 	}];
 
-	constructor(private router:Router, route : ActivatedRoute) {
+	private isShowMenu: Boolean = true;
+
+	constructor(private router: Router, route: ActivatedRoute, private titleService: CommonTitleService) {
 		router.events.subscribe(event => {
-			var snapshot = route.snapshot,
+			let snapshot = route.snapshot,
 				activated = route.firstChild;
 
 			if (activated !== null) {
@@ -59,6 +62,8 @@ export class MenuComponent {
 					activated = activated.firstChild;
 				}
 			}
+
+			this.isShowMenu = snapshot.data.stateName !== 'segments';
 
 			let item = this.items.filter(item => item.Url === snapshot.data['stateName']);
 

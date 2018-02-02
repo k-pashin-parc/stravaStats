@@ -7,6 +7,7 @@ import { RunDetailComponent } from 'run/detail/run.detail.component';
 import { BikeGraphComponent } from 'bike/graph/bike.graph.component';
 import { BikeDetailComponent } from 'bike/detail/bike.detail.component';
 import { DefaultRouteCongif } from 'config/default_route.config';
+import { SegmentsComponent } from './../segments/segments.component';
 
 export const routes: Routes = [
 	{
@@ -73,5 +74,12 @@ export const routes: Routes = [
 			path: 'detail/:id',
 			component: BikeDetailComponent
 		}]
+	}, {
+		path: 'segments/:id',
+		data: {
+			stateName: 'segments'
+		},
+		component: SegmentsComponent,
+		pathMatch: 'full'
 	}
 ];

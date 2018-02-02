@@ -1,3 +1,47 @@
-<div class='content'>
-	<mat-table-common [data]='data.segments' tableType='segments' classes='no-shadow segments'></mat-table-common>
-</div>
+<mat-card *ngIf='!isLoading && data' class="segments mat-elevation-z8">
+  <mat-card-header>
+		<mat-card-title class='table_title'>{{data.name}}</mat-card-title>
+		<mat-card-subtitle class='table_title'>{{data.date}}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content *ngIf='data?.segments' [class.empty]='!data.segments?.length'>
+		<mat-table *ngIf='data.segments.length' class='mat-table segments_table'>
+			<mat-header-row class='mat-header-row row'>
+				<mat-header-cell class='mat-header-cell cell' *ngFor='let col of tableConfig.segments.colNames'>{{col}}</mat-header-cell>
+			</mat-header-row>
+
+			<div *ngFor='let segment of data.segments; let i = index;' (click)='getLeaderboard(segment)'>
+				<mat-row class='mat-row row'>
+					<loader [(isLoading)]='segment.isLoading' diameter='24' strokeWidth='2' classes='row-loader'></loader>
+					<div class='cell' *ngFor='let field of tableConfig.segments.fields'>
+						<span [innerHtml]='segment[field] | fieldFormatter: segment: field'></span>
+					</div>
+				</mat-row>
+
+				<div class='segment'>
+					<div *ngIf='segment.segments?.entries && segment.isExpanded' class='segment-detail'>
+						<mat-table class='mat-table segment-detail-table'>
+							<mat-header-row class='mat-header-row row'>
+								<mat-header-cell *ngFor='let leaderboardCol of tableConfig.leaderboard.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.leaderboard.fields[i]}}'>{{leaderboardCol}}</mat-header-cell>
+							</mat-header-row>
+
+							<mat-row class='mat-row row' *ngFor='let athlete of segment.segments?.entries'>
+								<div class='cell {{tableConfig.leaderboard.fields[i]}}' *ngFor='let leaderboardField of tableConfig.leaderboard.fields; let i = index;'>
+									<span [innerHtml]='athlete[leaderboardField] | fieldFormatter: athlete: leaderboardField'></span>
+									<!-- <span *ngIf='leaderboardField === "elapsed_time" || leaderboardField === "rest_time"' [innerHtml]='athlete[leaderboardField] | durationPipe'></span>
+									<span *ngIf='leaderboardField !== "elapsed_time" && leaderboardField !== "rest_time"'>{{athlete[leaderboardField]}}</span> -->
+								</div>
+							</mat-row>
+						</mat-table>
+
+						<!-- <div class='map'></div> -->
+					</div>
+				</div>
+			</div>
+
+		</mat-table>
+
+		<no-data-component *ngIf='!data.segments?.length' classes='top'></no-data-component>
+	</mat-card-content>
+</mat-card>
+
+<loader [(isLoading)]='isLoading' classes='big_header'></loader>

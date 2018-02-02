@@ -12,11 +12,10 @@
 					<a class='link name' href='https://www.strava.com/activities/{{element.id}}' target='_blank'>{{element[field]}}</a>
 					<div class='details'>
 						<span class='detail link' (click)='showSplitsPopup(element.id, splitsComponent)'>отрезки</span>
-						<span class='detail link' (click)='showSegmentsPopup(element.id, segmentsComponent)'>сегменты</span>
+						<a class='detail link' [routerLink]="['/segments', element.id]" target='_blank'>сегменты </a>
 					</div>
 				</span>
-
-				<span *ngIf='i !== 0 || i === 0 && !element.id'>{{field === 'date' ? element['date_display'] : element[field]}}</span>
+				<span *ngIf='i !== 0 || i === 0 && !element.id' [innerHtml]='element[field] | fieldFormatter: element: field'></span>
 			</mat-cell>
     </ng-container>
 
@@ -25,9 +24,4 @@
 	</mat-table>
 </div>
 
-<div *ngIf='filterConf && dataSource.isEmpty' class='no_data_block-wrapper'>
-	<div class='no_data_block'>
-		<i class="material-icons">filter</i>
-		<div>Нет данных</div>
-	</div>
-</div>
+<no-data-component *ngIf='filterConf && dataSource.isEmpty'></no-data-component>

@@ -22,7 +22,6 @@ import { TableConfig } from 'config/table.config';
 import { CommonPopupService } from 'common/popup/popup.service';
 import { ActivitiesService } from 'activities/activities.service';
 import { SplitsComponent } from './../../splits/splits.component';
-import { SegmentsComponent } from './../../segments/segments.component';
 
 @Component({
 	selector: 'mat-table-common',
@@ -42,7 +41,6 @@ export class MatTableCommonComponent implements OnInit {
 	private dataSource: TableDataSource;
 	private tableConfig: Object;
 	private splitsComponent = SplitsComponent;
-	private segmentsComponent = SegmentsComponent;
 
 	constructor(private commonPopupService: CommonPopupService, private activitiesService: ActivitiesService, private route: ActivatedRoute) {}
 

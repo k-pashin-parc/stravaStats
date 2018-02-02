@@ -1,2 +1,68 @@
-.content
-	width: 1000px
+@import '~@angular/material/theming'
+
+.mat-card
+	padding: 0
+	margin: 26px 48px 48px
+
+.table_title
+	position: relative
+	left: 16px
+	top: 14px
+
+.mat-card-content
+	&.empty
+		height: 304px
+		border-top: 1px solid mat-color($mat-grey, 300)
+		position: relative
+
+.cell
+	flex: 1
+
+.row
+	position: relative
+	display: flex
+	border-bottom-width: 1px
+	border-bottom-style: solid
+	align-items: center
+	min-height: 48px
+	padding: 0 24px
+	cursor: pointer
+
+	&:hover:not(.mat-header-row)
+		background: mat-color($mat-grey, 50)
+
+.segment
+	position: relative
+
+	.segment-detail
+		font-size: 12px
+		width: 60%
+		border: 1px solid mat-color($mat-grey, 300)
+		border-bottom: none
+		margin: 32px
+
+		.segment-detail-table
+			.row
+				min-height: 32px
+
+			.mat-header-row
+				background: mat-color($mat-grey, 50)
+
+	.map
+		width: 35%
+		background: #efefef
+		height: 316px
+		position: absolute
+		right: 16px
+		top: 0
+		background: url('http://img.parcsis.net/i/7cc3330895ccfe4e3bafd4bb1029ae96.png')
+
+.rank
+	flex: 0 0 80px
+
+.athlete_name
+	flex: 0 0 160px
+
+.total_time,
+.rest_time
+	flex: 0 0 80px

@@ -57,7 +57,7 @@ export class SkiGraphComponent implements OnInit {
 
 				this.spentParams = {
 					data: seasons,
-					fields: ['elapsedTimeTotal', 'companyRidesTime'],
+					fields: ['elapsedTime', 'companyRidesTime'],
 					names: ['Времени потрачено (ч)', 'С Саней (ч)']
 				};
 

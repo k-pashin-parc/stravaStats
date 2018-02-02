@@ -6,6 +6,9 @@
 	position: relative
 	z-index: 1
 
+	&.big
+		height: 64px
+
 	.button-row
 		text-align: right
 
@@ -15,6 +18,13 @@
 			&.mat-button--active
 				background-color: rgba(0, 0, 0 ,.12)
 
+	.title
+		position: absolute
+		color: rgba(255, 255, 255, 0.87)
+		text-align: center
+		top: 50%
+		left: 50%
+		transform: translateX(-50%) translateY(-50%)
 
 [mat-tab-nav-bar]
 	background: #fff

@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +13,7 @@ import { MatSortModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material';
 import { Sort } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 import { LoaderComponent } from './loader/loader.component';
 import { ChartComponent} from './chart/chart.component';
@@ -20,6 +22,10 @@ import { MatTableCommonComponent } from './mat_table/mat_table.component';
 import { CommonPopupService } from './popup/popup.service';
 import { CommonPopupComponent } from './popup/popup.component';
 import { AddContentDirective } from './add_content/add.content.directive';
+import { CommonTitleService} from './title/title.service';
+import { CommonNoDataComponent } from './no_data/no_data.component';
+
+import { FieldFormatterPipe } from './pipes/field_formatter.pipe';
 
 @NgModule({
 	declarations: [
@@ -27,7 +33,9 @@ import { AddContentDirective } from './add_content/add.content.directive';
 		ChartComponent,
 		MatTableCommonComponent,
 		CommonPopupComponent,
-		AddContentDirective
+		AddContentDirective,
+		CommonNoDataComponent,
+		FieldFormatterPipe
 	],
 	exports: [
 		LoaderComponent,
@@ -38,7 +46,10 @@ import { AddContentDirective } from './add_content/add.content.directive';
 		MatSortModule,
 		MatCheckboxModule,
 		CommonPopupComponent,
-		AddContentDirective
+		AddContentDirective,
+		MatCardModule,
+		CommonNoDataComponent,
+		FieldFormatterPipe
 	],
 	imports: [
 		BrowserModule,
@@ -49,9 +60,11 @@ import { AddContentDirective } from './add_content/add.content.directive';
 		MatTableModule,
 		CdkTableModule,
 		MatSortModule,
-		MatCheckboxModule
+		MatCheckboxModule,
+		RouterModule,
+		MatCardModule
 	],
-	providers: [CommonPopupService]
+	providers: [CommonPopupService, CommonTitleService]
 })
 
 export class CommonComponentsModule {}

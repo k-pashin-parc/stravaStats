@@ -13,7 +13,9 @@ export class ActivitiesService {
 	private url = {
 		summary: '/api/summary',
 		splits: '/api/splits',
-		segments: '/api/segments'
+		segments: '/api/segments',
+		segmentLeaderboard: '/api/segmentLeaderboard',
+		myEfforts: '/api/segmentMyEfforts'
 	};
 
 	private isLoading: Boolean = false;
@@ -59,6 +61,17 @@ export class ActivitiesService {
 
 		return this.http
 			.get(this.url.segments, {params: params})
+			.map(res => res.json());
+	}
+
+	public getSegmentLeaderboard (item) {
+		var params = {
+			id: item.id,
+			distance: item.distance
+		};
+
+		return this.http
+			.get(this.url.segmentLeaderboard, {params: params})
 			.map(res => res.json());
 	}
 

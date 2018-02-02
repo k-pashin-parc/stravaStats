@@ -1,8 +1,9 @@
 <mat-table-common
 	*ngIf='!activitiesService.isLoading && activities'
 	[data]='activities'
-	tableType='common'
+	tableType='extended'
 	[filterConf]=filterConf
+	classes='ski-detail'
 >
 </mat-table-common>
 

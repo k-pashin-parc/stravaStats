@@ -11,4 +11,5 @@ export class LoaderComponent {
 	@Input() diameter: number = 48;
 	@Input() strokeWidth: number = 3;
 	@Input() mode: string = 'indeterminate';
+	@Input() classes: string;
 }

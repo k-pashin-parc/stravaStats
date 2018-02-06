@@ -25,6 +25,14 @@ function formatDistance (distance) {
 	return _.round(distance / 1000, 1);
 }
 
+function formatDate (date) {
+	return moment(date).format('DD MMM YYYY')
+}
+
+function formatDateMs (date) {
+	return (new Date(date)).valueOf();
+}
+
 function getRestTime (activity) {
 	return activity.elapsed_time - activity.moving_time;
 }
@@ -75,8 +83,8 @@ function formatData (allActivities) {
 		activity.season = seasonName;
 
 		activity.name = _.trim(activity.name);
-		activity.date_display = moment(activity.start_date).format('DD MMM YYYY');
-		activity.date = (new Date(activity.start_date)).valueOf();
+		activity.date_display = formatDate(activity.start_date);
+		activity.date = formatDateMs(activity.start_date);
 		activity.distance = _.round(activity.distance / 1000, 1);
 
 		activity.total_speed = _.round(activity.distance / (activity.elapsed_time / 60 / 60), 1);
@@ -295,10 +303,29 @@ function getSegmentMyEfforts (res, id) {
 		access_token: accessToken,
 		id: id,
 	}, function (err, payload) {
+		var detail = [];
+
 		if (err) {
 			res.json(err);
 		} else {
-			res.json(payload);
+			_.forEach(payload, function (el) {
+				detail.push({
+					id: el.activity.id,
+					date: formatDateMs(el.start_date),
+					date_display: formatDate(el.start_date),
+					elapsed_time: el.elapsed_time,
+					moving_time: el.moving_time,
+					distance: formatDistance(el.distance),
+					moving_speed: getSpeed(el.distance, el.moving_time),
+					total_speed: getSpeed(el.distance, el.elapsed_time),
+					rest_time: getRestTime(el),
+					kom_rank: el.kom_rank,
+					pr_rank: el.pr_rank,
+					achievements: el.achievements
+				});
+			});
+
+			return res.json(_.orderBy(detail, 'date', 'desc'));
 		}
 	});
 }

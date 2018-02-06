@@ -1,8 +1,11 @@
+import { forEach } from 'lodash';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActivitiesService } from 'activities/activities.service';
 import { TableConfig } from 'config/table.config';
 import { CommonTitleService } from 'common/title/title.service';
+import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
 	selector: 'segments',
@@ -13,24 +16,33 @@ import { CommonTitleService } from 'common/title/title.service';
 export class SegmentsComponent {
 	private data: Object;
 
-	private tableConfig = {
-		segments: TableConfig.segments,
-		leaderboard: TableConfig.leaderboard
-	};
+	private tableConfig = TableConfig;
 
 	private isLoading: Boolean = true;
 	private sectionName = 'Отрезки';
 
-	private getLeaderboard (item) {
+	private segmentMode = {
+		values: [{
+			Id: 'all',
+			Name: 'Все'
+		}, {
+			Id: 'my',
+			Name: 'Только мои'
+		}]
+	};
+
+	private getSegmentEfforts (item) {
 		if (!item.segments) {
+			const reqs = [this.activitiesService.getSegmentLeaderboard(item), this.activitiesService.getSegmentMyEfforts(item)];
 			item.isLoading = true;
 
-			this.activitiesService.getSegmentLeaderboard(item)
-				.subscribe((res: any) => {
-					item.segments = res;
-					item.isLoading = false;
-					item.isExpanded = true;
-				}, () => item.isLoading = false);
+			forkJoin(reqs).subscribe((res) => {
+				item.segments = res[0];
+				item.myEfforts = res[1];
+
+				item.isLoading = false;
+				item.isExpanded = true;
+			}, () => this.isLoading = false);
 		} else {
 			item.isExpanded = !item.isExpanded;
 		}
@@ -43,10 +55,17 @@ export class SegmentsComponent {
 		this.route.params.subscribe((params) => {
 			this.activitiesService.getSegments(params.id)
 				.subscribe((res: any) => {
-
+					this.titleService.setPageTitle(`${this.sectionName} – ${res.name}`);
 					this.data = res;
+
+					this.data['segments'].forEach((el) => {
+						el.segmentMode = 'all';
+					});
+
 					this.isLoading = false;
 				}, () => this.isLoading = false);
 		});
+
+
 	}
 }

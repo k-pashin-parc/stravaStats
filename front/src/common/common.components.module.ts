@@ -24,6 +24,7 @@ import { CommonPopupComponent } from './popup/popup.component';
 import { AddContentDirective } from './add_content/add.content.directive';
 import { CommonTitleService} from './title/title.service';
 import { CommonNoDataComponent } from './no_data/no_data.component';
+import { MatSelectModule } from '@angular/material/select';
 
 import { FieldFormatterPipe } from './pipes/field_formatter.pipe';
 
@@ -49,7 +50,8 @@ import { FieldFormatterPipe } from './pipes/field_formatter.pipe';
 		AddContentDirective,
 		MatCardModule,
 		CommonNoDataComponent,
-		FieldFormatterPipe
+		FieldFormatterPipe,
+		MatSelectModule
 	],
 	imports: [
 		BrowserModule,
@@ -62,7 +64,8 @@ import { FieldFormatterPipe } from './pipes/field_formatter.pipe';
 		MatSortModule,
 		MatCheckboxModule,
 		RouterModule,
-		MatCardModule
+		MatCardModule,
+		MatSelectModule
 	],
 	providers: [CommonPopupService, CommonTitleService]
 })

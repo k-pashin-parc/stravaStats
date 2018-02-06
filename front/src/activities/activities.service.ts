@@ -75,6 +75,17 @@ export class ActivitiesService {
 			.map(res => res.json());
 	}
 
+	public getSegmentMyEfforts (item) {
+		var params = {
+			id: item.id,
+			distance: item.distance
+		};
+
+		return this.http
+			.get(this.url.myEfforts, {params: params})
+			.map(res => res.json());
+	}
+
 	private handleError (error: Response | any) {
 		let errMsg: string;
 

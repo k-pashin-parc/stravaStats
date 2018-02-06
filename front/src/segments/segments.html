@@ -9,31 +9,53 @@
 				<mat-header-cell class='mat-header-cell cell' *ngFor='let col of tableConfig.segments.colNames'>{{col}}</mat-header-cell>
 			</mat-header-row>
 
-			<div *ngFor='let segment of data.segments; let i = index;' (click)='getLeaderboard(segment)'>
-				<mat-row class='mat-row row'>
+			<div *ngFor='let segment of data.segments'>
+				<mat-row class='mat-row row' (click)='getSegmentEfforts(segment)'>
 					<loader [(isLoading)]='segment.isLoading' diameter='24' strokeWidth='2' classes='row-loader'></loader>
-					<div class='cell' *ngFor='let field of tableConfig.segments.fields'>
-						<span [innerHtml]='segment[field] | fieldFormatter: segment: field'></span>
+					<div class='cell' *ngFor='let field of tableConfig.segments.fields; let fieldIndex = index;'>
+						<span [innerHtml]='segment[field] | fieldFormatter: segment: tableConfig.segments.types[fieldIndex]'></span>
 					</div>
 				</mat-row>
 
-				<div class='segment'>
-					<div *ngIf='segment.segments?.entries && segment.isExpanded' class='segment-detail'>
-						<mat-table class='mat-table segment-detail-table'>
-							<mat-header-row class='mat-header-row row'>
-								<mat-header-cell *ngFor='let leaderboardCol of tableConfig.leaderboard.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.leaderboard.fields[i]}}'>{{leaderboardCol}}</mat-header-cell>
-							</mat-header-row>
+				<div *ngIf='segment.segments?.entries && segment.isExpanded' class='segment'>
+					<!-- all -->
+					<mat-form-field class='segments-select'>
+						<mat-select placeholder='Результаты' [(value)]='segment.segmentMode'>
+							<mat-option *ngFor="let mode of segmentMode.values" [value]="mode.Id">{{mode.Name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
 
-							<mat-row class='mat-row row' *ngFor='let athlete of segment.segments?.entries'>
-								<div class='cell {{tableConfig.leaderboard.fields[i]}}' *ngFor='let leaderboardField of tableConfig.leaderboard.fields; let i = index;'>
-									<span [innerHtml]='athlete[leaderboardField] | fieldFormatter: athlete: leaderboardField'></span>
-									<!-- <span *ngIf='leaderboardField === "elapsed_time" || leaderboardField === "rest_time"' [innerHtml]='athlete[leaderboardField] | durationPipe'></span>
-									<span *ngIf='leaderboardField !== "elapsed_time" && leaderboardField !== "rest_time"'>{{athlete[leaderboardField]}}</span> -->
-								</div>
-							</mat-row>
-						</mat-table>
+					<div *ngIf='segment.segmentMode === "all"'>
+						<div class='segment-detail'>
+							<mat-table class='mat-table segment-detail-table'>
+								<mat-header-row class='mat-header-row row'>
+									<mat-header-cell *ngFor='let leaderboardCol of tableConfig.leaderboard.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.leaderboard.fields[i]}}'>{{leaderboardCol}}</mat-header-cell>
+								</mat-header-row>
 
-						<!-- <div class='map'></div> -->
+								<mat-row class='mat-row row' *ngFor='let athlete of segment.segments?.entries'>
+									<div class='cell {{tableConfig.leaderboard.fields[i]}}' *ngFor='let leaderboardField of tableConfig.leaderboard.fields; let i = index;'>
+										<span [innerHtml]='athlete[leaderboardField] | fieldFormatter: athlete: tableConfig.segments.types[i]'></span>
+									</div>
+								</mat-row>
+							</mat-table>
+						</div>
+					</div>
+
+					<!-- my -->
+					<div *ngIf='segment.segmentMode === "my"'>
+						<div class='segment-detail'>
+							<mat-table class='mat-table segment-detail-table'>
+								<mat-header-row class='mat-header-row row'>
+									<mat-header-cell *ngFor='let effortCol of tableConfig.myEfforts.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.myEfforts.fields[i]}}'>{{effortCol}}</mat-header-cell>
+								</mat-header-row>
+
+								<mat-row class='mat-row row' *ngFor='let effort of segment.myEfforts'>
+									<div class='cell {{tableConfig.myEfforts.fields[i]}}' *ngFor='let effortField of tableConfig.myEfforts.fields; let i = index;'>
+										<span [innerHtml]='effort[effortField] | fieldFormatter: effort: tableConfig.myEfforts.types[i]'></span>
+									</div>
+								</mat-row>
+							</mat-table>
+						</div>
 					</div>
 				</div>
 			</div>

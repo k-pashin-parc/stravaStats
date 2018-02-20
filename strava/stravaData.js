@@ -7,6 +7,7 @@ var _ = require('lodash'),
 	config = require('../config'),
 	stravaData = require('../strava/stravaData'),
 	exampleData = require('../strava/exampleData'),
+	decodePolyline = require('decode-google-map-polyline'),
 	accessToken = config.accessToken,
 	activities;
 
@@ -330,11 +331,26 @@ function getSegmentMyEfforts (res, id) {
 	});
 }
 
+function getSegmentMap (res, id) {
+	strava.segments.get({
+		access_token: accessToken,
+		id: id
+	}, function (err, payload) {
+		if (err) {
+			res.json(err);
+		} else {
+			payload.route = decodePolyline(payload.map.polyline);
+			res.json(_.pick(payload, ['start_latitude', 'start_longitude', 'end_latitude', 'end_longitude', 'route']));
+		}
+	});
+}
+
 module.exports = {
 	getActivities: getActivities,
 	init: init,
 	getSplits: getSplits,
 	getSegments: getSegments,
 	getSegmentLeaderboard: getSegmentLeaderboard,
-	getSegmentMyEfforts: getSegmentMyEfforts
+	getSegmentMyEfforts: getSegmentMyEfforts,
+	getSegmentMap: getSegmentMap
 };

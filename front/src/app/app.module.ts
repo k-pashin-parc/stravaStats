@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgmCoreModule } from '@agm/core';
 
 import { routes } from './app.routes';
 import { CommonComponentsModule } from '../common/common.components.module';
@@ -43,7 +44,10 @@ import { SegmentsComponent } from 'segments/segments.component';
 			useHash: true
 		}),
 		CommonComponentsModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		AgmCoreModule.forRoot({
+			apiKey: 'AIzaSyAx4-Mac2qbfdu979utDElN675zL5Dl-e4'
+		})
 	],
 	providers: [ActivitiesService],
 	bootstrap: [AppComponent],

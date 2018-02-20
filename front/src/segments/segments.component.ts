@@ -19,7 +19,7 @@ export class SegmentsComponent {
 	private tableConfig = TableConfig;
 
 	private isLoading: Boolean = true;
-	private sectionName = 'Отрезки';
+	private sectionName = 'Участки';
 
 	private segmentMode = {
 		values: [{
@@ -33,15 +33,25 @@ export class SegmentsComponent {
 
 	private getSegmentEfforts (item) {
 		if (!item.segments) {
-			const reqs = [this.activitiesService.getSegmentLeaderboard(item), this.activitiesService.getSegmentMyEfforts(item)];
+			const reqs = [
+				this.activitiesService.getSegmentLeaderboard(item),
+				this.activitiesService.getSegmentMyEfforts(item),
+				this.activitiesService.getSegmentMap(item.id)
+			];
+
 			item.isLoading = true;
+
+			this.data['segments'].forEach((el) => {
+				el.isExpanded = false;
+			});
 
 			forkJoin(reqs).subscribe((res) => {
 				item.segments = res[0];
 				item.myEfforts = res[1];
+				item.map = res[2];
 
-				item.isLoading = false;
 				item.isExpanded = true;
+				item.isLoading = false;
 			}, () => this.isLoading = false);
 		} else {
 			item.isExpanded = !item.isExpanded;

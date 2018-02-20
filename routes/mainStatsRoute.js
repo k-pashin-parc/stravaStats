@@ -28,6 +28,9 @@ function mainStatsRoute (app) {
 		})
 		.get('/api/segmentMyEfforts', function (req, res) {
 			stravaData.getSegmentMyEfforts(res, req.query.id);
+		})
+		.get('/api/segmentMap', function (req, res) {
+			stravaData.getSegmentMap(res, req.query.id);
 		});
 }
 

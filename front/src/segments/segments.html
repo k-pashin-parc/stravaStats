@@ -17,7 +17,15 @@
 					</div>
 				</mat-row>
 
-				<div *ngIf='segment.segments?.entries && segment.isExpanded' class='segment'>
+				<div *ngIf='segment.segments?.entries && segment.isExpanded' class='segment' [ngClass]='{"expanded": segment.isExpanded}'>
+					<!-- map -->
+					<agm-map [latitude]="segment.map.end_latitude" [longitude]="segment.map.start_longitude" mapTypeId='terrain' [zoom]=12 class='map' [streetViewControl]='false'>
+						<agm-polyline strokeColor='#3F51B5' strokeWeight='4'>
+							<agm-polyline-point  *ngFor='let point of segment.map.route' [latitude]="point.lat" [longitude]="point.lng">
+							</agm-polyline-point>
+						</agm-polyline>
+					</agm-map>
+
 					<!-- all -->
 					<mat-form-field class='segments-select'>
 						<mat-select placeholder='Результаты' [(value)]='segment.segmentMode'>

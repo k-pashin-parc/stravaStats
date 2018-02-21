@@ -16,7 +16,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/fromEvent';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import { TableConfig } from 'config/table.config';
 import { CommonPopupService } from 'common/popup/popup.service';

@@ -109,14 +109,14 @@ function formatData (allActivities) {
 	_.forOwn(data, function (type, key) {
 		_.forOwn(type.seasons, function (season) {
 			let activities = season.activities,
-				elapsedTimeTotal = _.round(_.sum(_.map(activities, 'elapsed_time')) / 60 / 60, 1),
+				elapsedTimeTotal = _.round(_.sum(_.map(activities, 'elapsed_time')) / 60 / 60, 2),
 				companyRides = _.filter(activities, function (el) { return el.name.includes('(+)');	});
 
 			season.ridesAmount = _.keys(_.groupBy(activities, 'date_display')).length;
-			season.totalDistance = _.round(_.sum(_.map(activities, 'distance')), 1);
+			season.totalDistance = _.round(_.sum(_.map(activities, 'distance')), 2);
 
 			season.elapsedTime = elapsedTimeTotal;
-			season.movingTime = _.round(_.sum(_.map(activities, 'moving_time')), 1);
+			season.movingTime = _.round(_.sum(_.map(activities, 'moving_time')), 2);
 
 			season.movingSpeed = _.round(season.totalDistance / season.movingTime, 1);
 			season.totalSpeed = _.round(season.totalDistance / season.elapsedTime, 1);

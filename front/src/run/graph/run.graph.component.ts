@@ -42,7 +42,7 @@ export class RunGraphComponent implements OnInit {
 
 				this.spentParams = {
 					data: seasons,
-					fields: ['elapsedTimeTotal'],
+					fields: ['elapsedTime'],
 					names: ['Времени потрачено (ч)']
 				};
 

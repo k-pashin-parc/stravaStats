@@ -7,7 +7,7 @@ import { isEqual } from 'lodash';
 	styleUrls: ['./chart.sass']
 })
 
-export class ChartComponent implements OnInit, OnChanges {
+export class ChartComponent implements OnChanges {
 	@Input() params: Object;
 	@Input() classes: String;
 

@@ -1,5 +1,8 @@
 import { HostBinding, Component, OnInit } from '@angular/core';
 
+import { forEach } from 'lodash';
+import { find } from 'lodash';
+
 import { ActivitiesService } from 'activities/activities.service';
 import { routeAnimation } from 'common/animations/animations';
 import { CommonUnsubscribe } from 'common/unsubscribe/unsubscribe.decorator';
@@ -21,14 +24,21 @@ export class SkiGraphComponent implements OnInit {
 	private totalDistanceParams: Object;
 	private spentParams: Object;
 	private request: Object;
+	private byMonthsParams: Object;
+
+	private getByMonthsParams;
+
+	private seasonsParams = {
+		values: [],
+		selectedSeasonId: null
+	};
 
 	constructor(private activitiesService: ActivitiesService) {}
 
 	ngOnInit () {
 		this.request = this.activitiesService.getActivities()
-			.subscribe((res: any) => {
-				var res = res || {},
-					data = res.Ski,
+			.subscribe((res: any = {}) => {
+				const data = res.Ski,
 					seasons = data.seasons;
 
 				this.ridesAmountParams = {
@@ -61,7 +71,31 @@ export class SkiGraphComponent implements OnInit {
 					names: ['Времени потрачено (ч)', 'С Саней (ч)']
 				};
 
+				this.byMonthsParams = {
+					data: data.seasons[data.seasons.length - 1].distanceByMonths,
+					fields: ['value'],
+					names: ['Пробег по месяцам, км']
+				};
+
+
+				data.seasons.forEach((el, i) => {
+					this.seasonsParams.values.unshift({
+						Id: el.id,
+						Name: el.title
+					});
+				});
+
+				this.seasonsParams.selectedSeasonId = this.seasonsParams.values[0].Id;
+
 				this.activities = data;
 			});
+
+		this.getByMonthsParams = () => {
+			return {
+				data: find(this.activities['seasons'], {id: this.seasonsParams.selectedSeasonId}).distanceByMonths,
+				fields: ['value'],
+				names: ['Пробег по месяцам, км']
+			};
+		};
 	}
 }

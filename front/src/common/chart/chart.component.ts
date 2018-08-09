@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+import { isEqual } from 'lodash';
 
 @Component({
 	selector: 'chart',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./chart.sass']
 })
 
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnChanges {
 	@Input() params: Object;
 	@Input() classes: String;
 
@@ -65,10 +66,12 @@ export class ChartComponent implements OnInit {
 		return res;
 	}
 
-	ngOnInit () {
-		var data = this.getBarData(this.params);
+	ngOnChanges (simpleChange) {
+		if (!isEqual(simpleChange.params.previousValue, simpleChange.params.currentValue)) {
+			const data = this.getBarData(this.params);
 
-		this.barChartLabels = data.labels;
-		this.barChartData = data.barData;
+			this.barChartLabels = data.labels;
+			this.barChartData = data.barData;
+		}
 	}
 }

@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ActivitiesService } from 'activities/activities.service';
 import { TableConfig } from 'config/table.config';
 import { CommonTitleService } from 'common/title/title.service';
-import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+
+
 
 @Component({
 	selector: 'segments',
@@ -75,7 +76,5 @@ export class SegmentsComponent {
 					this.isLoading = false;
 				}, () => this.isLoading = false);
 		});
-
-
 	}
 }

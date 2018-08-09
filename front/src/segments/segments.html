@@ -3,19 +3,20 @@
 		<mat-card-title class='table_title'>{{data.name}}</mat-card-title>
 		<mat-card-subtitle class='table_title'>{{data.date}}</mat-card-subtitle>
 	</mat-card-header>
+
 	<mat-card-content *ngIf='data?.segments' [class.empty]='!data.segments?.length'>
-		<mat-table *ngIf='data.segments.length' class='mat-table segments_table'>
-			<mat-header-row class='mat-header-row row'>
-				<mat-header-cell class='mat-header-cell cell' *ngFor='let col of tableConfig.segments.colNames'>{{col}}</mat-header-cell>
-			</mat-header-row>
+		<div *ngIf='data.segments.length' class='mat-table segments_table'>
+			<div class='mat-header-row row'>
+				<div class='mat-header-cell cell' *ngFor='let col of tableConfig.segments.colNames'>{{col}}</div>
+			</div>
 
 			<div *ngFor='let segment of data.segments'>
-				<mat-row class='mat-row row' (click)='getSegmentEfforts(segment)'>
+				<div class='mat-row row' (click)='getSegmentEfforts(segment)'>
 					<loader [(isLoading)]='segment.isLoading' diameter='24' strokeWidth='2' classes='row-loader'></loader>
 					<div class='cell' *ngFor='let field of tableConfig.segments.fields; let fieldIndex = index;'>
 						<span [innerHtml]='segment[field] | fieldFormatter: segment: tableConfig.segments.types[fieldIndex]'></span>
 					</div>
-				</mat-row>
+				</div>
 
 				<div *ngIf='segment.segments?.entries && segment.isExpanded' class='segment' [ngClass]='{"expanded": segment.isExpanded}'>
 					<!-- map -->
@@ -35,40 +36,39 @@
 
 					<div *ngIf='segment.segmentMode === "all"'>
 						<div class='segment-detail'>
-							<mat-table class='mat-table segment-detail-table'>
-								<mat-header-row class='mat-header-row row'>
-									<mat-header-cell *ngFor='let leaderboardCol of tableConfig.leaderboard.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.leaderboard.fields[i]}}'>{{leaderboardCol}}</mat-header-cell>
-								</mat-header-row>
+							<div class='mat-table segment-detail-table'>
+								<div class='mat-header-row row'>
+									<div *ngFor='let leaderboardCol of tableConfig.leaderboard.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.leaderboard.fields[i]}}'>{{leaderboardCol}}</div>
+								</div>
 
-								<mat-row class='mat-row row' *ngFor='let athlete of segment.segments?.entries'>
+								<div class='mat-row row' *ngFor='let athlete of segment.segments?.entries'>
 									<div class='cell {{tableConfig.leaderboard.fields[i]}}' *ngFor='let leaderboardField of tableConfig.leaderboard.fields; let i = index;'>
 										<span [innerHtml]='athlete[leaderboardField] | fieldFormatter: athlete: tableConfig.segments.types[i]'></span>
 									</div>
-								</mat-row>
-							</mat-table>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<!-- my -->
 					<div *ngIf='segment.segmentMode === "my"'>
 						<div class='segment-detail'>
-							<mat-table class='mat-table segment-detail-table'>
-								<mat-header-row class='mat-header-row row'>
-									<mat-header-cell *ngFor='let effortCol of tableConfig.myEfforts.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.myEfforts.fields[i]}}'>{{effortCol}}</mat-header-cell>
-								</mat-header-row>
+							<div class='mat-table segment-detail-table'>
+								<div class='mat-header-row row'>
+									<div *ngFor='let effortCol of tableConfig.myEfforts.colNames; let i = index;' class='mat-header-cell cell {{tableConfig.myEfforts.fields[i]}}'>{{effortCol}}</div>
+								</div>
 
-								<mat-row class='mat-row row' *ngFor='let effort of segment.myEfforts'>
+								<div class='mat-row row' *ngFor='let effort of segment.myEfforts'>
 									<div class='cell {{tableConfig.myEfforts.fields[i]}}' *ngFor='let effortField of tableConfig.myEfforts.fields; let i = index;'>
 										<span [innerHtml]='effort[effortField] | fieldFormatter: effort: tableConfig.myEfforts.types[i]'></span>
 									</div>
-								</mat-row>
-							</mat-table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-		</mat-table>
+		</div>
 
 		<no-data-component *ngIf='!data.segments?.length' classes='top'></no-data-component>
 	</mat-card-content>

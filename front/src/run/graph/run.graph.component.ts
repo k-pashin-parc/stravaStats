@@ -1,5 +1,8 @@
 import { HostBinding, Component, OnInit } from '@angular/core';
 
+import { forEach } from 'lodash';
+import { find } from 'lodash';
+
 import { ActivitiesService } from 'activities/activities.service';
 import { routeAnimation } from 'common/animations/animations';
 import { CommonUnsubscribe } from 'common/unsubscribe/unsubscribe.decorator';
@@ -19,18 +22,24 @@ export class RunGraphComponent implements OnInit {
 	private totalDistanceParams: Object;
 	private spentParams: Object;
 	private request: Object;
+	private getByMonthsParams;
+
+	private seasonsParams = {
+		values: [],
+		selectedSeasonId: null
+	};
 
 	constructor(private activitiesService: ActivitiesService) {}
 
 	ngOnInit () {
 		this.request = this.activitiesService.getActivities()
 			.subscribe((res: any) => {
-				var data = res.Run,
+				const data = res.Run,
 					seasons = data.seasons;
 
 				this.ridesAmountParams = {
 					data: seasons,
-					fields: ['ridesAmount',],
+					fields: ['ridesAmount'],
 					names: ['Кол-во забегов']
 				};
 
@@ -46,7 +55,24 @@ export class RunGraphComponent implements OnInit {
 					names: ['Времени потрачено (ч)']
 				};
 
+				data.seasons.forEach((el, i) => {
+					this.seasonsParams.values.unshift({
+						Id: el.id,
+						Name: el.title
+					});
+				});
+
+				this.seasonsParams.selectedSeasonId = this.seasonsParams.values[0].Id;
+
 				this.activities = data;
 			});
+
+		this.getByMonthsParams = () => {
+			return {
+				data: find(this.activities['seasons'], {id: this.seasonsParams.selectedSeasonId}).distanceByMonths,
+				fields: ['value'],
+				names: ['Пробег по месяцам, км']
+			};
+		};
 	}
 }

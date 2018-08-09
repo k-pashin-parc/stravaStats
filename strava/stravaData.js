@@ -76,6 +76,7 @@ function formatData (allActivities) {
 
 		if (!data[type].seasons[season]) {
 			data[type].seasons[season] = {
+				id: _.uniqueId(),
 				title: seasonName,
 				activities: []
 			};
@@ -144,6 +145,24 @@ function formatData (allActivities) {
 			season.companyRidesDistance = _.round(_.sum(_.map(companyRides, 'distance')), 1);
 			season.companyRidesAmount = _.keys(_.groupBy(companyRides, 'date_display')).length;
 			season.companyRidesTime = _.round(_.sum(_.map(companyRides, 'elapsed_time')) / 60 / 60, 1);
+
+			season.distanceByMonths = [];
+
+			for (var i = 1; i <= 12; i++) {
+				let monthActivities = _.filter(activities, function (el) {
+					return moment(el.date).format('MM') == i;
+				}),
+					method;
+
+				if (monthActivities.length) {
+					method = key === 'Ski' && i > 4 ? 'unshift': 'push';
+
+					season.distanceByMonths[method]({
+						title: moment(i, 'M').format('MMMM'),
+						value: _.round(_.sum(_.map(monthActivities, 'distance')), 1)
+					});
+				}
+			}
 
 			_.unset(season, 'activities');
 		});

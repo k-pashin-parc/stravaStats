@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ChartsModule } from 'ng2-charts';
 import { MatTabsModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
@@ -36,7 +38,7 @@ import { FieldFormatterPipe } from './pipes/field_formatter.pipe';
 		CommonPopupComponent,
 		AddContentDirective,
 		CommonNoDataComponent,
-		FieldFormatterPipe
+		FieldFormatterPipe,
 	],
 	exports: [
 		LoaderComponent,
@@ -51,7 +53,8 @@ import { FieldFormatterPipe } from './pipes/field_formatter.pipe';
 		MatCardModule,
 		CommonNoDataComponent,
 		FieldFormatterPipe,
-		MatSelectModule
+		MatSelectModule,
+		BrowserAnimationsModule,
 	],
 	imports: [
 		BrowserModule,
@@ -65,7 +68,8 @@ import { FieldFormatterPipe } from './pipes/field_formatter.pipe';
 		MatCheckboxModule,
 		RouterModule,
 		MatCardModule,
-		MatSelectModule
+		MatSelectModule,
+
 	],
 	providers: [CommonPopupService, CommonTitleService]
 })

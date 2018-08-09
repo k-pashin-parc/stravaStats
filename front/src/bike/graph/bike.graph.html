@@ -1,9 +1,17 @@
 <div *ngIf='!activitiesService.isLoading'>
-	<chart [params]='ridesAmountParams'></chart>
-
 	<chart [params]='totalDistanceParams'></chart>
 
-	<chart [params]='spentParams'></chart>
+	<div>
+		<mat-form-field class='segments-select'>
+			<mat-select placeholder='Сезоны' [(value)]='seasonsParams.selectedSeasonId'>
+				<mat-option *ngFor="let season of seasonsParams.values" [value]="season.Id">{{season.Name}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<chart [params]='getByMonthsParams()' classes='with-dropdown'></chart>
+
+	<!-- <chart [params]='ridesAmountParams'></chart> -->
+	<!-- <chart [params]='spentParams'></chart> -->
 </div>
 
 <loader [(isLoading)]='activitiesService.isLoading'></loader>

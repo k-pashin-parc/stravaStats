@@ -1,5 +1,8 @@
 import { HostBinding, Component, OnInit } from '@angular/core';
 
+import { forEach } from 'lodash';
+import { find } from 'lodash';
+
 import { ActivitiesService } from 'activities/activities.service';
 import { routeAnimation } from 'common/animations/animations';
 import { CommonUnsubscribe } from 'common/unsubscribe/unsubscribe.decorator';
@@ -14,24 +17,30 @@ import { CommonUnsubscribe } from 'common/unsubscribe/unsubscribe.decorator';
 export class BikeGraphComponent implements OnInit {
 	@HostBinding('@routeAnimation') routeAnimation = true;
 
-	constructor(private activitiesService: ActivitiesService) {}
-
 	private activities: Object[];
-
 	private ridesAmountParams: Object;
 	private totalDistanceParams: Object;
 	private spentParams: Object;
 	private request: Object;
+	private byMonthsParams: Object;
+	private getByMonthsParams;
+
+	private seasonsParams = {
+		values: [],
+		selectedSeasonId: null
+	};
+
+	constructor(private activitiesService: ActivitiesService) {}
 
 	ngOnInit () {
 		this.request = this.activitiesService.getActivities()
 			.subscribe((res: any) => {
-				let data = res.Ride;
-				let seasons = data.seasons;
+				const data = res.Ride,
+					seasons = data.seasons;
 
 				this.ridesAmountParams = {
 					data: seasons,
-					fields: ['ridesAmount',],
+					fields: ['ridesAmount'],
 					names: ['Кол-во заездов']
 				};
 
@@ -47,7 +56,30 @@ export class BikeGraphComponent implements OnInit {
 					names: ['Времени потрачено (ч)']
 				};
 
+				data.seasons.forEach((el, i) => {
+					this.seasonsParams.values.unshift({
+						Id: el.id,
+						Name: el.title
+					});
+				});
+
 				this.activities = data;
+
+				this.byMonthsParams = {
+					data: data.seasons[data.seasons.length - 1].distanceByMonths,
+					fields: ['value'],
+					names: ['Пробег по месяцам, км']
+				};
+
+				this.seasonsParams.selectedSeasonId = this.seasonsParams.values[0].Id;
 			});
+
+		this.getByMonthsParams = () => {
+			return {
+				data: find(this.activities['seasons'], {id: this.seasonsParams.selectedSeasonId}).distanceByMonths,
+				fields: ['value'],
+				names: ['Пробег по месяцам, км']
+			};
+		};
 	}
 }

@@ -37,7 +37,7 @@ export class ActivitiesService {
 	}
 
 	private extractActivities (res: Response): Object[] {
-		var body = res.json();
+		const body = res.json();
 
 		this.activities = body.data || {};
 		this.isLoading = false;
@@ -46,7 +46,7 @@ export class ActivitiesService {
 	}
 
 	public getSpilts (id) {
-		var params = {
+		const params = {
 			id: id
 		};
 
@@ -56,7 +56,7 @@ export class ActivitiesService {
 	}
 
 	public getSegments (id) {
-		var params = {
+		const params = {
 			id: id
 		};
 
@@ -66,7 +66,7 @@ export class ActivitiesService {
 	}
 
 	public getSegmentLeaderboard (item) {
-		var params = {
+		const params = {
 			id: item.id,
 			distance: item.distance
 		};
@@ -77,7 +77,7 @@ export class ActivitiesService {
 	}
 
 	public getSegmentMyEfforts (item) {
-		var params = {
+		const params = {
 			id: item.id,
 			distance: item.distance
 		};
@@ -88,7 +88,7 @@ export class ActivitiesService {
 	}
 
 	public getSegmentMap (id) {
-		var params = {
+		const params = {
 			id: id
 		};
 

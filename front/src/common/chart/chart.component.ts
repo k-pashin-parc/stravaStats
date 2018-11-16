@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { isEqual } from 'lodash';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 @Component({
 	selector: 'chart',
@@ -10,6 +11,7 @@ import { isEqual } from 'lodash';
 export class ChartComponent implements OnChanges {
 	@Input() params: Object;
 	@Input() classes: String;
+	@ViewChild(BaseChartDirective) chartView: BaseChartDirective;
 
 	private barChartOptions: Object = {
 		scaleShowVerticalLines: false,
@@ -72,6 +74,11 @@ export class ChartComponent implements OnChanges {
 
 			this.barChartLabels = data.labels;
 			this.barChartData = data.barData;
+
+			setTimeout(() => {
+				this.chartView.chart.config.data.labels = data.labels;
+				this.chartView.chart.update();
+			}, 0);
 		}
 	}
 }

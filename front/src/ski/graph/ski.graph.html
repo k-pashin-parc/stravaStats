@@ -1,21 +1,21 @@
 <div *ngIf='!activitiesService.isLoading && activities'>
 	<chart [params]='totalDistanceParams'></chart>
 
-	<!-- <chart [params]='ridesAmountParams'></chart> -->
+	<div class='floating_left'>
+		<mat-form-field class='segments-select segment-select--block'>
+			<mat-select placeholder='Сезоны' [(value)]='seasonsParams.selectedSeasonId'>
+				<mat-option *ngFor="let season of seasonsParams.values" [value]="season.Id">{{season.Name}}</mat-option>
+			</mat-select>
+		</mat-form-field>
 
+		<chart [params]='getByMonthsParams()' classes='with-dropdown not_floating'></chart>
+	</div>
+
+	<!-- <chart [params]='ridesAmountParams'></chart> -->
 	<!-- <chart [params]='spentParams'></chart> -->
 
 	<chart [params]='speedParams'></chart>
 	<chart [params]='detailSpeedParams' classes='big'></chart>
-
-	<!-- <mat-form-field class='segments-select segment-select--block'>
-		<mat-select placeholder='Сезоны' [(value)]='seasonsParams.selectedSeasonId'>
-			<mat-option *ngFor="let season of seasonsParams.values" [value]="season.Id">{{season.Name}}</mat-option>
-		</mat-select>
-	</mat-form-field>
-	<chart [params]='getByMonthsParams()' classes='with-dropdown'></chart> -->
-
-
 </div>
 
 <loader [(isLoading)]='activitiesService.isLoading'></loader>

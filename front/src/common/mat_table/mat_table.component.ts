@@ -10,12 +10,12 @@ import { MatDialogModule } from '@angular/material';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
+import { merge } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/fromEvent';
+import { fromEvent} from 'rxjs';
 import * as _ from 'lodash';
 
 import { TableConfig } from 'config/table.config';
@@ -58,7 +58,7 @@ export class MatTableCommonComponent implements OnInit {
 			setTimeout( () => {
 				_.forEach(this.filterCheckboxes['nativeElement']['children'], (el) => {
 
-					Observable.fromEvent(el, 'click')
+					fromEvent(el, 'click')
 						.debounceTime(250)
 						.distinctUntilChanged()
 						.subscribe(() => {
@@ -115,7 +115,7 @@ export class TableDataSource extends DataSource<any> {
 			this._filterChange
 		];
 
-		return Observable.merge(...displayDataChanges).map(() => {
+		return merge(...displayDataChanges).map(() => {
 			var data = this.filterData(this.getSortedData(this.data));
 
 			this.isEmpty = !data.length;

@@ -1,10 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
+import { of } from 'rxjs';
 
 import { dataConfig } from './../config/data.config';
 
@@ -33,7 +34,7 @@ export class ActivitiesService {
 	public getActivities () {
 		this.isLoading = !this.activities;
 
-		return this.activities ? Observable.of(this.activities) : this.requestActivities();
+		return this.activities ? of(this.activities) : this.requestActivities();
 	}
 
 	private extractActivities (res: Response): Object[] {

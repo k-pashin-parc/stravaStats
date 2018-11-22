@@ -152,16 +152,21 @@ function formatData (allActivities) {
 				let monthActivities = _.filter(activities, function (el) {
 					return moment(el.date).format('MM') == i;
 				}),
-					method;
+					index;
 
 				if (monthActivities.length) {
-					method = key === 'Ski' && i > 4 ? 'unshift': 'push';
+					index = key === 'Ski' && i > 9 ? i - 13 : i;
 
-					season.distanceByMonths[method]({
+					season.distanceByMonths.push({
+						index: index,
 						title: moment(i, 'M').format('MMMM'),
 						value: _.round(_.sum(_.map(monthActivities, 'distance')), 1)
 					});
 				}
+			}
+
+			if (key === 'Ski') {
+				season.distanceByMonths = _.sortBy(season.distanceByMonths, 'index');
 			}
 
 			_.unset(season, 'activities');

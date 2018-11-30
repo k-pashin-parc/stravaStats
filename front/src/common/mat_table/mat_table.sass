@@ -60,7 +60,7 @@
 	.mat-column-name
 		flex: 0 0 360px
 
-@media only screen and (max-width: 600px)
+@media only screen and (max-width: 960px)
 	.cdk-column-elapsed_time,
 	.cdk-column-rest_time
 		display: none
@@ -71,3 +71,27 @@
 
 	.mat-cell
 		font-size: 12px
+
+	.mat-header-cell
+		&.cdk-column-moving_speed,
+		&.cdk-column-distance
+			position: relative
+			visibility: hidden
+
+			&:after
+				visibility: visible
+				position: absolute
+				left: 0
+				right: 0
+
+		&.cdk-column-moving_speed
+			&:after
+				content: 'Км/ч'
+
+		&.cdk-column-distance
+			&:after
+				content: 'Км'
+
+@media only screen and (max-width: 400px)
+	.cdk-column-date
+		display: none

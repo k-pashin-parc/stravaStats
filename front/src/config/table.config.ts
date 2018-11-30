@@ -5,9 +5,9 @@ export const TableConfig = {
 		types: ['link', 'string', 'string', 'date']
 	},
 	extended: {
-		fields: ['name', 'distance', 'moving_speed', 'elapsed_time', 'rest_time', 'date'],
-		colNames: ['Название', 'Расстояние (км)', 'Ср. скрорость в движении (км/ч)', 'Время', 'Отдых', 'Дата'],
-		types: ['link', 'string', 'string', 'time', 'time', 'date']
+		fields: ['name', 'distance', 'moving_speed', 'total_speed', 'elapsed_time', 'rest_time', 'date'],
+		colNames: ['Название', 'Расстояние (км)', 'Ср. скрорость в движении (км/ч)', 'Общ. км/ч', 'Время', 'Отдых', 'Дата'],
+		types: ['link', 'string', 'string', 'string', 'time', 'time', 'date']
 	},
 	splits: {
 		fields: ['index', 'distance', 'moving_speed', 'total_speed'],

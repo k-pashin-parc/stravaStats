@@ -60,6 +60,9 @@
 	.mat-column-name
 		flex: 0 0 360px
 
+.cdk-column-total_speed
+	display: none
+
 @media only screen and (max-width: 960px)
 	.cdk-column-elapsed_time,
 	.cdk-column-rest_time
@@ -92,6 +95,12 @@
 			&:after
 				content: 'Км'
 
+	.cdk-column-total_speed
+		display: flex
+
 @media only screen and (max-width: 400px)
 	.cdk-column-date
 		display: none
+
+	.cdk-column-total_speed
+		display: flex

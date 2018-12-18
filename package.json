@@ -44,5 +44,10 @@
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
     "strava-v3": "^1.12.1"
-  }
+	},
+	"now": {
+		"github": {
+			"enabled": false
+		}
+	}
 }
